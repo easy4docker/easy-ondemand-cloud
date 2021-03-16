@@ -23,7 +23,8 @@
 				callback({status:'failure', message : 'Missing postData'});
 			} else {
 				fs.readdir(env.sharedFolder, (err, list) => {
-					callback({status:'success', result: (err) ? [] : list});
+					callback({status:'success', result: (err) ? [] : list.filter(
+						(rec) => { return (rec[0] === '.') ? false: true})});
 				});
 			}
 		}
@@ -32,7 +33,8 @@
 				callback({status:'failure', message : 'Missing postData.data.result'});
 			} else {
 				fs.readdir(env.sharedFolder + '/' + postData.data.result, (err, list) => {
-					callback({status:'success', result: (err) ? [] : list, p : env.sharedFolder + '/' + postData.result});
+					callback({status:'success', result: (err) ? [] : list.filter(
+						(rec) => { return (rec[0] === '.') ? false: true})});
 				});
 			}
 		}

@@ -7,9 +7,23 @@
                         <div class="card ondemand-requestions-section mt-0 mr-1 p-2">
                             <div class="pl-2 m-0 text-left"><h5>OnDemand Results:</h5></div>
 
-                            <div v-if="currentResult" class="border border-secondary rounded m-1 p-1 text-left">
-                                {{currentResult}}
-                                ({{resultFiles.length}})
+                            <div v-if="currentResult" class="border border-secondary alert-secondary rounded m-1 p-1 text-left">
+                                <div class="p-1">
+                                    {{currentResult}}
+                                    ({{resultFiles.length}})
+                                    <a href="JavaScript:void(o)" v-on:Click="togglesRresultFiles()"  >
+                                        <i class="fa fa-angle-double-up pull-right" v-if="!togglesRresult"></i>
+                                        <i class="fa fa-angle-double-right pull-right" v-if="!!togglesRresult"></i>
+                                    </a>
+                                </div>
+                                <div class="current-ondemand-section overflow-auto bg-secondary" v-if="!!togglesRresult">
+                                    <div v-for="o in resultFiles" class="ml-2 mt-1">
+                                        <a href="JavaScript:void(0)"
+                                            class="text-left text-light" >
+                                            {{o}}
+                                        </a>
+                                    </div>
+                                </div>  
                             </div>
                             <span v-if="results.length" v-for="o in results">
                                 <div v-on:click="selectResult(o)" v-if="o !== currentResult"
@@ -25,7 +39,24 @@
                     
                     </div>
                     <div class="card alert-light col-9 p-2 m-0 text-left">
-                        test
+                        <div v-if="!results.length"
+                            class="m-1 p-1 text-left text-secondary">
+                            No results.
+                        </div> 
+                        <div class="" v-if="!!togglesRresult">
+                            Input Data:
+                        </div>  
+                        <div class="" v-if="!!togglesRresult">
+                            Output Data:
+                            <div class="alert-secondary">
+                                <div v-for="o in resultFiles" class="ml-2 mt-1">
+                                    <a href="JavaScript:void(0)"
+                                        class="text-left text-light" >
+                                        {{o}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>  
                     </div>
                 </div>
             </div>
@@ -41,6 +72,7 @@ module.exports = {
             module          : '',
             results         : [],
             resultFiles     : [],
+            togglesRresult  : true,
             currentResult   : ''
         }
     },
@@ -52,6 +84,10 @@ module.exports = {
 
     },
     methods :{
+        togglesRresultFiles() {
+            const me = this;
+            me.togglesRresult = (me.togglesRresult) ? false : true;
+        },
         getOndemandResults() {
             const me = this;
             me.root.dataEngine().appPost({
@@ -68,6 +104,7 @@ module.exports = {
                 cmd : 'getResultFiles',
                 data : { result : o }
             }, (result)=> {
+                me.togglesRresult = true;
                 me.resultFiles = result.result;
                 console.log(result);
             }, true);
@@ -84,5 +121,8 @@ module.exports = {
 <style>
 .ondemand-requestions-section {
     min-height : 40rem;
+}
+.current-ondemand-section {
+    max-height: 26rem;
 }
 </style>
