@@ -9,7 +9,8 @@
 					callback('requestOnDemand');
 					bresk;
 				case 'getOnDemandResults' :
-					me[postData.cmd]((data) => {
+				case 'getResultFiles' :
+					me[postData.cmd](postData, (data) => {
 						callback(data);
 					});
 					break;
@@ -17,10 +18,23 @@
 					callback(postData);
 			}
 		};
-		me.getOnDemandResults = (callback) => {
-			fs.readdir(env.sharedFolder, (err, list) => {
-				callback({status:'success', result: (err) ? [] : list});
-			});
+		me.getOnDemandResults = (postData, callback) => {
+			if (!postData) {
+				callback({status:'failure', message : 'Missing postData'});
+			} else {
+				fs.readdir(env.sharedFolder, (err, list) => {
+					callback({status:'success', result: (err) ? [] : list});
+				});
+			}
+		}
+		me.getResultFiles = (postData, callback) => {
+			if (!postData || !postData.data || !postData.data.result) {
+				callback({status:'failure', message : 'Missing postData.data.result'});
+			} else {
+				fs.readdir(env.sharedFolder + '/' + postData.data.result, (err, list) => {
+					callback({status:'success', result: (err) ? [] : list, p : env.sharedFolder + '/' + postData.result});
+				});
+			}
 		}
 	};
 	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
