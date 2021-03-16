@@ -1,0 +1,125 @@
+<template>
+    <div class="body-card m-1">
+        <div class="card-body m-0 p-1">
+            <div class="container-fluid m-0 head-menu-1">
+                <div class="row">
+                    <div class="col-3 p-1 m-0 ">
+                        <div class="card ondemand-requestions-section mt-0 mr-1 p-2">
+                            <div class="pl-2 m-0 text-left"><h5>OnDemand Queues:</h5></div>
+                            <div v-if="requests.length" v-for="o in requests"
+                                class="border border-secondary rounded m-1 p-1 text-left">
+                                {{o}}
+                            </div>
+                            <div v-if="!requests.length"
+                                class="m-1 p-1 text-left text-secondary">
+                                No pendding request.
+                            </div> 
+                        </div>
+                    
+                    </div>
+                    <div class="card alert-light col-9 p-2 m-0 text-left">
+                        <h3>Request OnDemand Form</h3>
+                        <div class="form-group">
+                            <label>Repository git URI</label>
+                            <input type="text" class="form-control" v-model="form.gitHub" @input="changedGit" placeholder="A Git URI">
+                        </div>
+                        <div class="form-group">
+                            <div class="container-fluid border border-2 p-2 alert-secondary rounded">
+                                <div class="row">
+                                    <div class="col-12 text-info">
+                                        * Only if private repository need provide username and password                      
+                                    </div>
+                                </div>    
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label>Repository username</label>
+                                        <input type="text" class="form-control" v-model="form.userName"  placeholder="Rep. username">                        
+                                    </div>
+                                    <div class="col-6">
+                                        <label>Repository password</label>
+                                        <input type="password" class="form-control" v-model="form.password" placeholder="Rep. password">
+                                    </div>
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-sm btn-success border border-secondary m-1" 
+                                :disabled="!isSubmit()"
+                                v-on:click="querySubmit()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+            <div class="container-fluid mt-1 head-menu-2">
+            </div>
+        </div>
+    </div> 
+</template>
+ 
+<script>
+module.exports = {
+    data: function() {
+        return {
+            root :  this.$parent.root,
+            module : '',
+            form : {
+                gitHub      : '',
+                userName    : '',
+                password    : ''
+            },
+            requests : [],
+            errors: {}
+        }
+    },
+    mounted() {
+    },
+    watch : {
+
+    },
+    methods :{
+        cleanForm() {
+            var me = this;
+            me.form.userName = '';
+            me.form.password = '';
+        },
+        changedGit(e) {
+            var me = this;
+            me.form.gitHub = e.target.value.replace(/^\s+|\s+$/g, '');
+            me.cleanForm();
+        },
+        gitUrlValidation() {
+            var me = this;
+            me.errors.gitHub = null;
+            var regex = /^(git|ssh|https?|git@[-\w.]+):(\/\/)?(.*?)(\.git)(\/?|\#[-\d\w._]+?)$/;
+            
+            if (!me.form.gitHub) {
+                me.errors.gitHub = 'Github URI required.';
+            } else if (!regex.test(me.form.gitHub)) {
+                me.errors.gitHub = 'Incorrect github URI.';
+            } else {
+                delete me.errors.gitHub;
+            }
+            return (!me.errors.gitHub) ? true : false;
+        },
+        isSubmit() {
+            var me = this;
+            return (me.gitUrlValidation()) ? true : false;
+        },
+        showError() {
+            const me = this;
+            JSON.stringify(me.error)
+        },
+        querySubmit() {
+            alert(123);
+        }
+    }
+}
+</script>
+ 
+<style>
+.ondemand-requestions-section {
+    min-height : 40rem;
+}
+</style>
