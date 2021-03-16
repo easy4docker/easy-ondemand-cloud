@@ -11,11 +11,11 @@
                                 <div class="p-1">
                                     {{currentResult}}
                                     <a href="JavaScript:void(0)" v-on:Click="togglesRresultFiles()"  >
-                                        <i class="fa fa-angle-double-up pull-right" v-if="!togglesRresult"></i>
-                                        <i class="fa fa-angle-double-right pull-right" v-if="!!togglesRresult"></i>
+                                        <i class="fa fa-angle-double-right pull-right" v-if="!togglesRresult"></i>
+                                        <i class="fa fa-angle-double-up pull-right" v-if="!!togglesRresult"></i>
                                     </a>
                                 </div>
-                                <div class="current-ondemand-section overflow-auto bg-secondary" v-if="!!togglesRresult">
+                                <div class="current-ondemand-section overflow-auto bg-light p-2" v-if="!!togglesRresult">
                                     Input :  {{(!resultFiles.input) ? '' : resultFiles.input.length}}<br/>
                                     Output : {{(!resultFiles.input) ? '' : resultFiles.output.length}}<br/>
                                 </div>  
@@ -41,6 +41,12 @@
                         Input Data: 
                         <div class="input-data-section alert-warning rounded border border-warning p-1 overflow-auto">
                             input contents
+                            <div v-for="o in resultFiles" class="ml-2 mt-1">
+                                <a href="JavaScript:void(0)"
+                                    class="text-left text-secondary" >
+                                    {{o}}
+                                </a>
+                            </div>
                         </div>
                         Output Data:
                         <div class="output-data-section alert-success rounded border border-success p-1 overflow-auto">
