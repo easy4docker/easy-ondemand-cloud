@@ -3,12 +3,24 @@
         <div class="card-body m-0 p-1">
             <div class="container-fluid m-0 head-menu-1">
                 <div class="row">
-                    <div class="col-12 p-0 m-0 text-left">
-                    OnDemand Results
+                    <div class="col-3 p-1 m-0 ">
+                        <div class="card ondemand-requestions-section mt-0 mr-1 p-2">
+                            <div class="pl-2 m-0 text-left"><h5>OnDemand Results:</h5></div>
+                            <div v-if="results.length" v-for="o in results"
+                                class="border border-secondary rounded m-1 p-1 text-left">
+                                {{o}}
+                            </div>
+                            <div v-if="!results.length"
+                                class="m-1 p-1 text-left text-secondary">
+                                No results.
+                            </div> 
+                        </div>
+                    
+                    </div>
+                    <div class="card alert-light col-9 p-2 m-0 text-left">
+                        test
                     </div>
                 </div>
-            </div>
-            <div class="container-fluid mt-1 head-menu-2">
             </div>
         </div>
     </div> 
@@ -19,7 +31,8 @@ module.exports = {
     data: function() {
         return {
             root :  this.$parent.root,
-            module : ''
+            module : '',
+            results : []
         }
     },
     mounted() {
@@ -33,4 +46,7 @@ module.exports = {
 </script>
  
 <style>
+.ondemand-requestions-section {
+    min-height : 40rem;
+}
 </style>
