@@ -15,4 +15,4 @@ echo "4" > <%=@shareFolder %>/4.txt
 echo "5" > <%=@shareFolder %>/5.txt
 echo "6" > <%=@shareFolder %>/6.txt
 
-docker run -d <%=@cmdPorts  %> -v "<%=@shareFolder %>":/var/_shareFolder -v "<%=@dockerCodePath%>":/var/_localApp -v "<%=@dockerDataPath%>":/var/_localAppData -v "<%=@dockerEnvPath%>":/var/_localAppEnv  --network network_easydocker --name <%=@siteContainer %>  <%=@siteImage %>
+docker run -d <%=@cmdPorts  %> -v "<%=@shareFolder %>":/var/_sharedFolder -v "<%=@dockerCodePath%>":/var/_localApp -v "<%=@dockerDataPath%>":/var/_localAppData -v "<%=@dockerEnvPath%>":/var/_localAppEnv  --network network_easydocker --name <%=@siteContainer %>  <%=@siteImage %>
