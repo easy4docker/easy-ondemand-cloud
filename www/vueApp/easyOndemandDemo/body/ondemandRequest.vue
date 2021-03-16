@@ -27,7 +27,7 @@
                             <div class="container-fluid border border-2 p-2 alert-secondary rounded">
                                 <div class="row">
                                     <div class="col-12 text-info">
-                                        * Only if private repository need provide username and password                      
+                                        * Only if private git repository need provide username and password                      
                                     </div>
                                 </div>    
                                 <div class="row">
@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <button class="btn btn-sm btn-success border border-secondary m-1" 
                                 :disabled="!isSubmit()"
-                                v-on:click="querySubmit()">Submit</button>
+                                v-on:click="submit()">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -111,8 +111,14 @@ module.exports = {
             const me = this;
             JSON.stringify(me.error)
         },
-        querySubmit() {
-            alert(123);
+        submit() {
+            const me = this;
+            me.root.dataEngine().appPost({
+                cmd : 'query',
+                data : me.form
+            }, (result)=> {
+                console.log(result);
+            }, true);
         }
     }
 }

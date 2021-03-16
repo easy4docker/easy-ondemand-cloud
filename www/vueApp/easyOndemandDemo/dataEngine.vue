@@ -19,7 +19,7 @@ module.exports = {
             if (isSpinner) me.$parent.triggerSpinner = true;
             $.ajax({
                 type: 'POST',
-                url: '/',
+                url: '/api/',
                 data: {},
                 success: function(result) {
                     console.log('--A--');
