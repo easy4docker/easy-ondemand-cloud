@@ -114,7 +114,7 @@ module.exports = {
         submit() {
             const me = this;
             me.root.dataEngine().appPost({
-                cmd : 'query',
+                cmd : 'onDemandRequest',
                 data : me.form
             }, (result)=> {
                 console.log(result);

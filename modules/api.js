@@ -1,11 +1,17 @@
 (function () { 
 	var obj =  function (env, pkg) {
         const fs = require('fs'),
-            me = this,
-			MYSQL = require(env.root + '/vendor/mysql/node_modules/mysql');
+            me = this;
 
 		me.call = (postData, callback) => {
-			callback(postData);
+			switch(postData.cmd) {
+				case 'onDemandRequest' :
+					callback('onDemandRequest');
+					bresk;
+				default:
+					callback(postData);
+			}
+			
 		};
 	};
 	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
