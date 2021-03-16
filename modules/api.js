@@ -12,13 +12,15 @@
 					me[postData.cmd]((data) => {
 						callback(data);
 					});
-					bresk;
+					break;
 				default:
 					callback(postData);
 			}
 		};
 		me.getOnDemandResults = (callback) => {
-			callback({status:'success', result:['onDemandRequests1', 'onDemandRequests2']});
+			fs.readdir(env.sharedFolder, (err, list) => {
+				callback({status:'success', result: (err) ? [] : list});
+			});
 		}
 	};
 	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
