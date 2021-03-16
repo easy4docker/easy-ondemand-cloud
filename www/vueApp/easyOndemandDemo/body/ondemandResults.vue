@@ -36,11 +36,22 @@ module.exports = {
         }
     },
     mounted() {
+        const me = this;
+        me.getOndemandResults();
     },
     watch : {
 
     },
     methods :{
+        getOndemandResults() {
+            const me = this;
+            me.root.dataEngine().appPost({
+                cmd : 'getOndemandResults',
+                data : me.form
+            }, (result)=> {
+                console.log(result);
+            }, true);
+        }
     }
 }
 </script>
