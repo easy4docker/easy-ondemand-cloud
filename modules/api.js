@@ -9,13 +9,17 @@
 					callback('requestOnDemand');
 					bresk;
 				case 'onDemandRequests' :
-					callback('onDemandRequests');
+					me[postData.cmd]((data) => {
+						res.send(data);
+					});
 					bresk;
 				default:
 					callback(postData);
 			}
-			
 		};
+		me.onDemandRequests = (callback) => {
+			callback('onDemandRequests1');
+		}
 	};
 	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 		module.exports = obj;
