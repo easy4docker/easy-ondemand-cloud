@@ -11,7 +11,7 @@
             <div class="col-1 p-0"></div>
             <div class="col-10 p-0 card text-center shadow border rounded">
                 <ondemand-results ref="ondemandResults" v-if="module === 'ondemandResults'"></ondemand-results>
-                <request-ondemand ref="ondemandRequest" v-if="module === 'ondemandRequest'"></request-ondemand>
+                <request-ondemand ref="requestOndemand" v-if="module === 'requestOndemand'"></request-ondemand>
                 <body-documents ref="bodyDocuments" v-if="module === 'documents'"></body-documents>
             </div>
             <div class="col-1 p-0"></div>
@@ -29,7 +29,7 @@ module.exports = {
         return {
             root : this,
             triggerSpinner : false,
-            module : 'ondemandRequest'
+            module : 'ondemandResults'
         }
     },    
     watch : {
