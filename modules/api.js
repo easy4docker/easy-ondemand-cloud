@@ -8,17 +8,17 @@
 				case 'requestOnDemand' :
 					callback('requestOnDemand');
 					bresk;
-				case 'onDemandRequests' :
+				case 'getOnDemandResults' :
 					me[postData.cmd]((data) => {
-						res.send(data);
+						callback(data);
 					});
 					bresk;
 				default:
 					callback(postData);
 			}
 		};
-		me.onDemandRequests = (callback) => {
-			callback('onDemandRequests1');
+		me.getOnDemandResults = (callback) => {
+			callback({status:'success', result:['onDemandRequests1', 'onDemandRequests2']});
 		}
 	};
 	if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {

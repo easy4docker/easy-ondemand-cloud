@@ -46,9 +46,10 @@ module.exports = {
         getOndemandResults() {
             const me = this;
             me.root.dataEngine().appPost({
-                cmd : 'getOndemandResults',
-                data : me.form
+                cmd : 'getOnDemandResults',
+                data : {}
             }, (result)=> {
+                me.results = result.result;
                 console.log(result);
             }, true);
         }
