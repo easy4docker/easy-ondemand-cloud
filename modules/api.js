@@ -5,8 +5,11 @@
 
 		me.call = (postData, callback) => {
 			switch(postData.cmd) {
-				case 'onDemandRequest' :
-					callback('onDemandRequest');
+				case 'requestOnDemand' :
+					callback('requestOnDemand');
+					bresk;
+				case 'onDemandRequests' :
+					callback('onDemandRequests');
 					bresk;
 				default:
 					callback(postData);

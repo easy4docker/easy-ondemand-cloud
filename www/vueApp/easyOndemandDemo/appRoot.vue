@@ -11,7 +11,7 @@
             <div class="col-1 p-0"></div>
             <div class="col-10 p-0 card text-center shadow border rounded">
                 <ondemand-results ref="ondemandResults" v-if="module === 'ondemandResults'"></ondemand-results>
-                <ondemand-request ref="ondemandRequest" v-if="module === 'ondemandRequest'"></ondemand-request>
+                <request-ondemand ref="ondemandRequest" v-if="module === 'ondemandRequest'"></request-ondemand>
                 <body-documents ref="bodyDocuments" v-if="module === 'documents'"></body-documents>
             </div>
             <div class="col-1 p-0"></div>
@@ -52,7 +52,7 @@ module.exports = {
     components: VUEApp.loadComponents({
         LOAD    : {
             'ondemandResults'   : '/vueApp/easyOndemandDemo/body/ondemandResults.vue',
-            'ondemandRequest'   : '/vueApp/easyOndemandDemo/body/ondemandRequest.vue',
+            'requestOndemand'   : '/vueApp/easyOndemandDemo/body/requestOndemand.vue',
             'bodyDocuments'   : '/vueApp/easyOndemandDemo/body/documents.vue'   
         }, 
         TPL :{
