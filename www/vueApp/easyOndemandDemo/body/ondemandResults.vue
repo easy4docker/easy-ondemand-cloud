@@ -7,23 +7,26 @@
                         <div class="card ondemand-requestions-section mt-0 mr-1 p-2">
                             <div class="pl-2 m-0 text-left"><h5>OnDemand Results:</h5></div>
 
-                            <div v-if="currentResult" class="border border-secondary alert-secondary rounded m-1 p-1 text-left">
-                                <div class="p-1">
-                                    {{currentResult}}
-                                    <a href="JavaScript:void(0)" v-on:Click="togglesRresultFiles()"  >
-                                        <i class="fa fa-angle-double-right pull-right" v-if="!togglesRresult"></i>
-                                        <i class="fa fa-angle-double-up pull-right" v-if="!!togglesRresult"></i>
-                                    </a>
-                                </div>
-                                <div class="current-ondemand-section overflow-auto bg-light p-2" v-if="!!togglesRresult">
-                                    Input :  {{(!resultFiles.input) ? '' : resultFiles.input.length}}<br/>
-                                    Output : {{(!resultFiles.input) ? '' : resultFiles.output.length}}<br/>
-                                </div>  
-                            </div>
+
                             <span v-if="results.length" v-for="o in results">
                                 <div v-on:click="selectResult(o)" v-if="o !== currentResult"
                                     class="border border-secondary rounded m-1 p-1 text-left">
                                     {{o}}
+                                    <a href="JavaScript:void(0)" v-on:Click="selectResult(o)"  >
+                                        <i class="fa fa-angle-double-right pull-right"></i>
+                                    </a>
+                                </div>
+                                <div v-if="currentResult === o " class="border border-secondary alert-secondary rounded m-1 p-1 text-left">
+                                    <div class="p-1">
+                                        {{currentResult}}
+                                        <a href="JavaScript:void(0)" v-on:Click="selectResult('')"  >
+                                            <i class="fa fa-angle-double-left pull-right"></i>
+                                        </a>
+                                    </div>
+                                    <div class="current-ondemand-section overflow-auto bg-light p-2" v-if="!!togglesRresult">
+                                        Input :  {{(!resultFiles.input) ? '' : resultFiles.input.length}}<br/>
+                                        Output : {{(!resultFiles.input) ? '' : resultFiles.output.length}}<br/>
+                                    </div>  
                                 </div>
                             <span>
                             <div v-if="!results.length"
@@ -85,10 +88,6 @@ module.exports = {
 
     },
     methods :{
-        togglesRresultFiles() {
-            const me = this;
-            me.togglesRresult = (me.togglesRresult) ? false : true;
-        },
         getOndemandResults() {
             const me = this;
             me.root.dataEngine().appPost({
