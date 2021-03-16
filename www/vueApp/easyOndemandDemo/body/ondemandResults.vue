@@ -10,8 +10,7 @@
                             <div v-if="currentResult" class="border border-secondary alert-secondary rounded m-1 p-1 text-left">
                                 <div class="p-1">
                                     {{currentResult}}
-                                    ({{/*resultFiles.length*/}})
-                                    <a href="JavaScript:void(o)" v-on:Click="togglesRresultFiles()"  >
+                                    <a href="JavaScript:void(0)" v-on:Click="togglesRresultFiles()"  >
                                         <i class="fa fa-angle-double-up pull-right" v-if="!togglesRresult"></i>
                                         <i class="fa fa-angle-double-right pull-right" v-if="!!togglesRresult"></i>
                                     </a>
