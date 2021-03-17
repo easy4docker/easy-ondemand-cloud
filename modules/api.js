@@ -11,6 +11,7 @@
 					bresk;
 				case 'getOnDemandResults' :
 				case 'getResultFiles' :
+				case 'getFileContent':
 					me[postData.cmd](postData, (data) => {
 						callback(data);
 					});
@@ -29,6 +30,15 @@
 				});
 			}
 		}
+
+		me.getFileContent = (postData, callback) => {
+			const dt = postData.data;
+			const fn = env.sharedFolder + '/' + dt.ondemand + '/' + dt.ftype + '/' + dt.file;
+			fs.readFile(fn, 'utf-8', (err, content) => {
+				callback({status:'success', content : content});
+			});
+		}
+
 		me.getResultFiles = (postData, callback) => {
 			if (!postData || !postData.data || !postData.data.result) {
 				callback({status:'failure', message : 'Missing postData.data.result'});

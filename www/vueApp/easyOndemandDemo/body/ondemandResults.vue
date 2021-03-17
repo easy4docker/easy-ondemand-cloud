@@ -13,17 +13,17 @@
                                     class="border border-secondary rounded m-1 p-1 text-left">
                                     {{o}}
                                     <a href="JavaScript:void(0)" v-on:Click="selectResult(o)"  >
-                                        <i class="fa fa-angle-double-right pull-right"></i>
+                                        <i class="fa fa-angle-double-down pull-right"></i>
                                     </a>
                                 </div>
                                 <div v-if="currentResult === o " class="border border-secondary alert-secondary rounded m-1 p-1 text-left">
                                     <div class="p-1">
                                         {{currentResult}}
                                         <a href="JavaScript:void(0)" v-on:Click="selectResult('')"  >
-                                            <i class="fa fa-angle-double-left pull-right"></i>
+                                            <i class="fa fa-angle-double-right pull-right"></i>
                                         </a>
                                     </div>
-                                    <div class="current-ondemand-section overflow-auto bg-light p-2" v-if="!!togglesRresult">
+                                    <div class="current-ondemand-section overflow-auto bg-light p-2">
                                         Input :  {{(!resultFiles.input) ? '' : resultFiles.input.length}}<br/>
                                         Output : {{(!resultFiles.input) ? '' : resultFiles.output.length}}<br/>
                                     </div>  
@@ -41,23 +41,24 @@
                             class="m-1 p-1 text-left text-secondary">
                             No results.
                         </div>
-                        Input Data: 
+
                         <div class="input-data-section alert-warning rounded border border-warning p-1 overflow-auto">
-                            input contents
-                            <div v-for="o in resultFiles" class="ml-2 mt-1">
-                                <a href="JavaScript:void(0)"
+                            <div class="float-tag pull-right">Input contents</div>
+                            <div v-for="o in resultFiles.input" class="ml-2 mt-1">
+                                <a href="JavaScript:void(0)" v-on:click="getFileContent(currentResult, 'input', o)"
                                     class="text-left text-secondary" >
                                     {{o}}
+                                    <div>-{{contents[currentResult + '-input-' + o]}}</div>
                                 </a>
                             </div>
                         </div>
-                        Output Data:
-                        <div class="output-data-section alert-success rounded border border-success p-1 overflow-auto">
-                            output contents
-                            <div v-for="o in resultFiles" class="ml-2 mt-1">
-                                <a href="JavaScript:void(0)"
+                        <div class="output-data-section alert-success rounded border border-success p-1 mt-1 overflow-auto">
+                            <div class="float-tag pull-right">Output contents</div>
+                            <div v-for="o in resultFiles.output" class="ml-2 mt-1">
+                                <a href="JavaScript:void(0)" v-on:click="getFileContent(currentResult, 'output', o)"
                                     class="text-left text-secondary" >
                                     {{o}}
+                                    <div>-{{contents[currentResult + '-output-' + o]}}</div>
                                 </a>
                             </div>
                         </div>  
@@ -76,8 +77,8 @@ module.exports = {
             module          : '',
             results         : [],
             resultFiles     : [],
-            togglesRresult  : true,
-            currentResult   : ''
+            currentResult   : '',
+            contents : {}
         }
     },
     mounted() {
@@ -104,7 +105,6 @@ module.exports = {
                 cmd : 'getResultFiles',
                 data : { result : o }
             }, (result)=> {
-                me.togglesRresult = true;
                 me.resultFiles = result.files;
                 console.log(result);
             }, true);
@@ -113,7 +113,20 @@ module.exports = {
             const me = this;
             me.currentResult = o;
             me.getResultFiles(o);
+        },
+        getFileContent(ondemand, ftype, file) {
+            const me = this;
+            me.root.dataEngine().appPost({
+                cmd : 'getFileContent',
+                data : { ondemand : ondemand ,ftype: ftype, file:file}
+            }, (result)=> {
+                me.contents[ondemand + '-' + ftype + '-' + file] = 'result.content';
+                me.$forceUpdate();
+                console.log(result);
+                console.log(me.contents);
+            }, true);
         }
+
     }
 }
 </script>
@@ -126,10 +139,12 @@ module.exports = {
     max-height: 26rem;
 }
 .input-data-section {
-    height: 12rem;
+    height: 10rem;
 }
 .output-data-section {
-    min-height: 18rem;
-    max-height: 36rem;
+    height: 26rem;
+}
+.float-tag {
+    z-index :8000;
 }
 </style>
