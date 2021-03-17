@@ -6,9 +6,7 @@
 
 		me.call = (postData, callback) => {
 			switch(postData.cmd) {
-				case 'requestOnDemand' :
-					callback('requestOnDemand');
-					bresk;
+				case 'onDemandRequest' :	
 				case 'getOnDemandResults' :
 				case 'getResultFiles' :
 				case 'getFileContent':
@@ -20,6 +18,16 @@
 					callback(postData);
 			}
 		};
+		me.onDemandRequest= (postData, callback) => {
+			const data = {
+				code : 'addOndemand',
+				param : postData.data
+			}
+			fs.writeFile(env.dataFolder + '/commCron/requestOnDemand.json', JSON.stringify(data), (err, result) => {
+				callback({status:'success'});
+			})
+		}
+
 		me.getOnDemandResults = (postData, callback) => {
 			if (!postData) {
 				callback({status:'failure', message : 'Missing postData'});
