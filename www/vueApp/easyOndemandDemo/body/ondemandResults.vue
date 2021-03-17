@@ -120,7 +120,7 @@ module.exports = {
                 cmd : 'getFileContent',
                 data : { ondemand : ondemand ,ftype: ftype, file:file}
             }, (result)=> {
-                me.contents[ondemand + '-' + ftype + '-' + file] = 'result.content';
+                me.contents[ondemand + '-' + ftype + '-' + file] = result.content;
                 me.$forceUpdate();
                 console.log(result);
                 console.log(me.contents);
