@@ -6,7 +6,7 @@
 
 		me.call = (postData, callback) => {
 			switch(postData.cmd) {
-				case 'getPenddingRequests':
+				case "getPenddingRequests" :
 				case 'onDemandRequest' :	
 				case 'getOnDemandResults' :
 				case 'getResultFiles' :
@@ -30,13 +30,17 @@
 		}
 
 		me.onDemandRequest= (postData, callback) => {
+			const requestId = new Date().getTime(); 
 			const data = {
 				code : 'addOndemand',
 				param : postData.data
 			}
-			fs.writeFile(env.dataFolder + '/commCron/request' + new Date().getTime() + '.json', JSON.stringify(data), (err, result) => {
-				callback({status:'success'});
+			fs.writeFile(env.dataFolder + '/commCron_request' + requestId + '.json', JSON.stringify(data), (err, result) => {
+				fs.writeFile(env.dataFolder + '/commCron/request' + requestId + '.json', JSON.stringify(data), (err, result) => {
+					callback({status:'success'});
+				})
 			})
+
 		}
 
 		me.getOnDemandResults = (postData, callback) => {
