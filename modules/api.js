@@ -2,8 +2,7 @@
 	var obj =  function (env, pkg) {
         const 	me = this,
 				fs = require('fs'),
-				cp = new pkg.crowdProcess(),
-				exec = require('child_process').exec;
+				cp = new pkg.crowdProcess()
 
 		me.call = (postData, callback) => {
 			switch(postData.cmd) {
@@ -21,25 +20,22 @@
 			}
 		};
 		me.getPenddingRequests = (postData, callback) => {
+			const data = {
+				code : 'penddingRequest',
+				param : {}
+			}
 			fs.readdir(env.dataFolder + '/commCron', (err, list) => {
 				callback((!err) ? {status:'success', list:list} : {status:'failure', message:err.mrssage});
 			});
 		}
 
 		me.onDemandRequest= (postData, callback) => {
-			const requestId = new Date().getTime();
 			const data = {
 				code : 'addOndemand',
-				requestId : requestId,
 				param : postData.data
 			}
-			
-			fs.writeFile(env.dataFolder + '/commCron/request_' + requestId + '.json', JSON.stringify(data), (err, result) => {
-				let cmdStr = 'mkdir -p ' + env.dataFolder + '/commCronData/data_' + requestId;
-				cmdStr += '&& echo "' +  JSON.stringify(postData.data) + '" >> ' + env.dataFolder + '/commCronData/data_' + requestId + '/Post.data';
-				exec(cmdStr,  {maxBuffer: 224 * 2048}, () => {
-					callback({status:'success'});
-				});
+			fs.writeFile(env.dataFolder + '/commCron/request' + new Date().getTime() + '.json', JSON.stringify(data), (err, result) => {
+				callback({status:'success'});
 			})
 		}
 
