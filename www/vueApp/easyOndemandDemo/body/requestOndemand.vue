@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-3 p-1 m-0 ">
                         <div class="card ondemand-requestions-section mt-0 mr-1 p-2">
-                            <div class="pl-2 m-0 text-left"><h5>OnDemand Queues:</h5></div>
+                            <div class="pl-2 m-0 text-left"><h5>Pendding requests:</h5></div>
                             <div v-if="requests.length" v-for="o in requests"
                                 class="border border-secondary rounded m-1 p-1 text-left">
                                 {{o}}
@@ -17,7 +17,10 @@
                         </div>
                     
                     </div>
-                    <div class="card alert-light col-9 p-2 m-0 text-left" v-if="!module">
+                    <div class="card alert-light col-9 p-2 m-0 text-left" v-if="module === 'success'">
+                        Your request has been sent successfully!
+                    </div>
+                    <div class="card alert-light col-9 p-2 m-0 text-left" v-if="!module !== 'success'">
                         <h3>Request OnDemand Form</h3>
                         <div class="form-group">
                             <label>Repository git URI</label>
@@ -118,6 +121,7 @@ module.exports = {
                 data : me.form
             }, (result)=> {
                 console.log(result);
+                me.module = 'success';
                 me.getPenddingRequests();
             }, true);
         },

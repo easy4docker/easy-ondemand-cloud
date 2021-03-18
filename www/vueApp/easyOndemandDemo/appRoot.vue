@@ -29,7 +29,7 @@ module.exports = {
         return {
             root : this,
             triggerSpinner : false,
-            module : ''
+            module : 'ondemandResults'
         }
     },    
     watch : {
