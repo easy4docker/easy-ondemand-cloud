@@ -41,25 +41,28 @@
                             class="m-1 p-1 text-left text-secondary">
                             No results.
                         </div>
-
+                        <div class="p-1 text-dark"><b>Input Data</b></div>
                         <div class="input-data-section alert-warning rounded border border-warning p-1 overflow-auto">
-                            <div class="float-tag pull-right">Input contents</div>
+                            
                             <div v-for="o in resultFiles.input" class="ml-2 mt-1">
-                                <a href="JavaScript:void(0)" v-on:click="getFileContent(currentResult, 'input', o)"
-                                    class="text-left text-secondary" >
-                                    {{o}}
-                                    <div>-{{contents[currentResult + '-input-' + o]}}</div>
-                                </a>
+                                [<a href="JavaScript:void(0)" v-on:click="getFileContent(currentResult, 'i', o)"
+                                    class="text-left text-dark" >
+                                    {{o}}</a>]
+                                <div class="bg-dark  p-2 rounded border border-success ml-3" v-if="!!contents[currentResult + '-i-' + o]">
+                                    <pre class="text-light">{{contents[currentResult + '-i-' + o]}}</pre>
+                                </div>
                             </div>
                         </div>
+                        <div class="p-1 text-dark"><b>Output contents</b></div>
                         <div class="output-data-section alert-success rounded border border-success p-1 mt-1 overflow-auto">
-                            <div class="float-tag pull-right">Output contents</div>
+                            
                             <div v-for="o in resultFiles.output" class="ml-2 mt-1">
-                                <a href="JavaScript:void(0)" v-on:click="getFileContent(currentResult, 'output', o)"
-                                    class="text-left text-secondary" >
-                                    {{o}}
-                                    <div>-{{contents[currentResult + '-output-' + o]}}</div>
-                                </a>
+                                [<a href="JavaScript:void(0)" v-on:click="getFileContent(currentResult, 'o', o)"
+                                    class="text-left text-dark" >
+                                    {{o}}</a>]
+                                <div class="bg-dark  p-2 rounded border border-success m-2 ml-3" v-if="!!contents[currentResult + '-o-' + o]">
+                                    <pre class="text-light">{{contents[currentResult + '-o-' + o]}}</pre>
+                                </div>
                             </div>
                         </div>  
                     </div>
@@ -118,7 +121,7 @@ module.exports = {
             const me = this;
             me.root.dataEngine().appPost({
                 cmd : 'getFileContent',
-                data : { ondemand : ondemand ,ftype: ftype, file:file}
+                data : { ondemand : ondemand ,ftype: ((ftype === 'i') ? 'input' : 'output'), file:file}
             }, (result)=> {
                 me.contents[ondemand + '-' + ftype + '-' + file] = result.content;
                 me.$forceUpdate();
