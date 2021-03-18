@@ -46,6 +46,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label>Upload Inuut Data Files</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <button class="btn btn-sm btn-success border border-secondary m-1" 
                                 :disabled="!isSubmit()"
                                 v-on:click="submit()">Submit</button>
@@ -77,6 +84,11 @@ module.exports = {
         }
     },
     mounted() {
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
     },
     watch : {
 

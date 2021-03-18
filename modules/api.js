@@ -2,7 +2,8 @@
 	var obj =  function (env, pkg) {
         const 	me = this,
 				fs = require('fs'),
-				cp = new pkg.crowdProcess()
+				cp = new pkg.crowdProcess(),
+				exec = require('child_process').exec;
 
 		me.call = (postData, callback) => {
 			switch(postData.cmd) {
@@ -26,12 +27,17 @@
 		}
 
 		me.onDemandRequest= (postData, callback) => {
+			const requestId = new Date().getTime();
 			const data = {
 				code : 'addOndemand',
+				requestId : requestId,
 				param : postData.data
 			}
-			fs.writeFile(env.dataFolder + '/commCron/request' + new Date().getTime() + '.json', JSON.stringify(data), (err, result) => {
-				callback({status:'success'});
+			
+			fs.writeFile(env.dataFolder + '/commCron/request' + requestId + '.json', JSON.stringify(data), (err, result) => {
+				exec('mkdir -p ' + env.dataFolder + '/commCronData/' + requestId,  {maxBuffer: 224 * 2048}, () => {
+					callback({status:'success'});
+				});
 			})
 		}
 
