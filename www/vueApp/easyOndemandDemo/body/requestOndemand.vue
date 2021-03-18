@@ -49,13 +49,6 @@
                             <label>Input Data (* option)</label>
                             <textarea class="form-control" v-model="form.inputData" rows="6" placeholder="input data"></textarea>
                         </di>            
-                        <!--div class="form-group">
-                            <label>Upload Inuut Data Files</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                            </div>
-                        </div-->
                         <div class="form-group">
                             <button class="btn btn-sm btn-success border border-secondary m-1 mt-2" 
                                 :disabled="!isSubmit()"
