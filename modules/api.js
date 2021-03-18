@@ -6,6 +6,7 @@
 
 		me.call = (postData, callback) => {
 			switch(postData.cmd) {
+				case 'getPenddingRequests':
 				case 'onDemandRequest' :	
 				case 'getOnDemandResults' :
 				case 'getResultFiles' :
@@ -18,11 +19,7 @@
 					callback(postData);
 			}
 		};
-		me.penddingRequest= (postData, callback) => {
-			const data = {
-				code : 'penddingRequest',
-				param : {}
-			}
+		me.getPenddingRequests = (postData, callback) => {
 			fs.readdir(env.dataFolder + '/commCron', (err, list) => {
 				callback((!err) ? {status:'success', list:list} : {status:'failure', message:err.mrssage});
 			});

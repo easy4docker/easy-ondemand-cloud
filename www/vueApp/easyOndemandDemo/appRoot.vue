@@ -29,7 +29,7 @@ module.exports = {
         return {
             root : this,
             triggerSpinner : false,
-            module : 'ondemandResults'
+            module : ''
         }
     },    
     watch : {
@@ -40,6 +40,7 @@ module.exports = {
     },
     mounted () {
         var me = this;
+        me.module = (!/^\/app\//.test(location.pathname)) ? 'list' : (location.pathname.replace(/\/app\//, ''));
         setTimeout(function() {
         },200);
     },
