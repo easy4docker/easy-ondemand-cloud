@@ -18,12 +18,22 @@
 					callback(postData);
 			}
 		};
+		me.penddingRequest= (postData, callback) => {
+			const data = {
+				code : 'penddingRequest',
+				param : {}
+			}
+			fs.readdir(env.dataFolder + '/commCron', (err, list) => {
+				callback((!err) ? {status:'success', list:list} : {status:'failure', message:err.mrssage});
+			});
+		}
+
 		me.onDemandRequest= (postData, callback) => {
 			const data = {
 				code : 'addOndemand',
 				param : postData.data
 			}
-			fs.writeFile(env.dataFolder + '/commCron/requestOnDemand.json', JSON.stringify(data), (err, result) => {
+			fs.writeFile(env.dataFolder + '/commCron/request' + new Date().getTime() + '.json', JSON.stringify(data), (err, result) => {
 				callback({status:'success'});
 			})
 		}

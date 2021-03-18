@@ -17,7 +17,7 @@
                         </div>
                     
                     </div>
-                    <div class="card alert-light col-9 p-2 m-0 text-left">
+                    <div class="card alert-light col-9 p-2 m-0 text-left" v-if="!module">
                         <h3>Request OnDemand Form</h3>
                         <div class="form-group">
                             <label>Repository git URI</label>
@@ -117,6 +117,17 @@ module.exports = {
                 cmd : 'onDemandRequest',
                 data : me.form
             }, (result)=> {
+                console.log(result);
+                me.getPenddingRequests();
+            }, true);
+        },
+        getPenddingRequests() {
+            const me = this;
+            me.root.dataEngine().appPost({
+                cmd : 'getPenddingRequests',
+                data : {}
+            }, (result)=> {
+                me.requests = (!result.list) ? [] : result.list;
                 console.log(result);
             }, true);
         }
