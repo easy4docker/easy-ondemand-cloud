@@ -45,15 +45,19 @@
                                 </div>    
                             </div>
                         </div>
-                        <div class="form-group">
+                       <div class="form-group">
+                            <label>Input Data (* option)</label>
+                            <textarea class="form-control" v-model="form.inputData" rows="6" placeholder="input data"></textarea>
+                        </di>            
+                        <!--div class="form-group">
                             <label>Upload Inuut Data Files</label>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="customFile">
                                 <label class="custom-file-label" for="customFile">Choose file</label>
                             </div>
-                        </div>
+                        </div-->
                         <div class="form-group">
-                            <button class="btn btn-sm btn-success border border-secondary m-1" 
+                            <button class="btn btn-sm btn-success border border-secondary m-1 mt-2" 
                                 :disabled="!isSubmit()"
                                 v-on:click="submit()">Submit</button>
                         </div>
@@ -77,7 +81,8 @@ module.exports = {
             form : {
                 gitHub      : '',
                 userName    : '',
-                password    : ''
+                password    : '',
+                inputData   : ''
             },
             requests : [],
             errors: {}
