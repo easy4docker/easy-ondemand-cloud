@@ -36,14 +36,12 @@
                         </div>
                     
                     </div>
-                    <div class="card alert-light col-10 p-2 m-0 text-left">
-                        <div v-if="!results.length"
-                            class="m-1 p-1 text-left text-secondary">
-                            No results.
-                        </div>
+                    <div class="card alert-light col-10 p-2 m-0 text-left" v-if="!!currentResult">
+                        <h3 class="text-dark p-2">{{currentResult}}<button class="btn btn-danger pull-right" v-on:click="removeResult(currentResult)">Delete this result</button></h3>
                         <div class="p-1 text-dark"><b>Input Data</b></div>
+                         
                         <div class="input-data-section alert-warning rounded border border-warning p-1 overflow-auto">
-                            
+                           
                             <div v-for="o in resultFiles.input" class="ml-2 mt-1">
                                 [<a href="JavaScript:void(0)" v-on:click="getFileContent(currentResult, 'i', o)"
                                     class="text-left text-dark" >
@@ -100,6 +98,16 @@ module.exports = {
             }, (result)=> {
                 me.results = result.result;
                 console.log(result);
+            }, true);
+        },
+        removeResult (o) {
+            const me = this;
+            me.root.dataEngine().appPost({
+                cmd : 'removeResult',
+                data : { result : o }
+            }, (result)=> {
+                me.getOndemandResults();
+                me.currentResult = '';
             }, true);
         },
         getResultFiles (o) {

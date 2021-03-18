@@ -2,10 +2,12 @@
 	var obj =  function (env, pkg) {
         const 	me = this,
 				fs = require('fs'),
-				cp = new pkg.crowdProcess()
+				cp = new pkg.crowdProcess(),
+				exec = require('child_process').exec;
 
 		me.call = (postData, callback) => {
 			switch(postData.cmd) {
+				case 'removeResult' :
 				case "getPenddingRequests" :
 				case 'onDemandRequest' :	
 				case 'getOnDemandResults' :
@@ -20,15 +22,18 @@
 			}
 		};
 		me.getPenddingRequests = (postData, callback) => {
-			const data = {
-				code : 'penddingRequest',
-				param : {}
-			}
 			fs.readdir(env.dataFolder + '/commCron', (err, list) => {
 				callback((!err) ? {status:'success', list:list} : {status:'failure', message:err.mrssage});
 			});
 		}
 
+		me.removeResult = (postData, callback) => {
+			const comStr = 'rm -fr ' + env.sharedFolder + '/' + postData.data.result;
+			
+			exec(comStr,  {maxBuffer: 224 * 2048}, function(err, stdout, stderr) {
+				callback((!err) ? {status:'success'} : {status:'failure', message:err.mrssage});
+			});
+		}
 		me.onDemandRequest= (postData, callback) => {
 			const requestId = new Date().getTime(); 
 			const data = {
