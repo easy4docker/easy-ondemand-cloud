@@ -34,8 +34,8 @@
 				param : postData.data
 			}
 			
-			fs.writeFile(env.dataFolder + '/commCron/request' + requestId + '.json', JSON.stringify(data), (err, result) => {
-				exec('mkdir -p ' + env.dataFolder + '/commCronData/' + requestId,  {maxBuffer: 224 * 2048}, () => {
+			fs.writeFile(env.dataFolder + '/commCron/request_' + requestId + '.json', JSON.stringify(data), (err, result) => {
+				exec('mkdir -p ' + env.dataFolder + '/commCronData/data_' + requestId,  {maxBuffer: 224 * 2048}, () => {
 					callback({status:'success'});
 				});
 			})
