@@ -1,7 +1,7 @@
 <template>
     <div class="body-card overflow-auto  m-1">
         <div class="card-body m-0 p-1">
-            <div class="container-fluid m-0 head-menu-1">
+            <div class="container-fluid m-0">
                 <div class="row">
                     <div class="col-2 p-1 m-0 ">
                         <div class="card ondemand-requestions-section mt-0 mr-1 p-2">

@@ -12,7 +12,7 @@
             <div class="col-10 p-0 card text-center shadow border rounded">
                 <ondemand-results ref="ondemandResults" v-if="module === 'ondemandResults'"></ondemand-results>
                 <request-ondemand ref="requestOndemand" v-if="module === 'requestOndemand'"></request-ondemand>
-                <body-documents ref="bodyDocuments" v-if="module === 'documents'"></body-documents>
+                <body-documents ref="bodyDocuments" v-if="!module || module === 'documents'"></body-documents>
             </div>
             <div class="col-1 p-0"></div>
         </div>
@@ -29,7 +29,7 @@ module.exports = {
         return {
             root : this,
             triggerSpinner : false,
-            module : 'ondemandResults'
+            module : ''
         }
     },    
     watch : {
@@ -40,7 +40,7 @@ module.exports = {
     },
     mounted () {
         var me = this;
-        me.module = (!/^\/app\//.test(location.pathname)) ? 'list' : (location.pathname.replace(/\/app\//, ''));
+        me.module = (!/^\/app\//.test(location.pathname)) ? '' : (location.pathname.replace(/\/app\//, ''));
         setTimeout(function() {
         },200);
     },
@@ -68,5 +68,5 @@ module.exports = {
 </script>
  
 <style>
-.body-card { min-height : 42em }
+/*.body-card { min-height : 82em }*/
 </style>
