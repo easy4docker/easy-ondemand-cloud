@@ -48,6 +48,8 @@ var pkg = {
 }
 app.engine('ect', pkg.ECT({ watch: true, cache: false, root: __dirname + '/views', ext : '.ect' }).render);
 
+app.use(upload.array());
+
 app.use(bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies   
   extended: true
