@@ -63,7 +63,7 @@ app.post('/upload',
     next();
   },
   (req, res, next) => {
-        res.send({status: 'success',filename : (!req.files) ? 'req.file' : req.files[0].path});
+        res.send({status: 'success', uploadID:new Date().getTime(), files : (!req.files) ? [] : req.files});
   }
 )
 
