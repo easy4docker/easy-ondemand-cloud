@@ -39,7 +39,7 @@ module.exports = {
                 }
             }
             if (isSpinner) me.$parent.triggerSpinner = true;
-            if (Object.keys(postFormData)) {
+            if (Object.keys(postFormData).length) {
                 me.ajaxPostForm(postFormData, function(resultPostForm) {
                     postData.uploadID = resultPostForm.uploadID;
                     me.ajaxPostData(postData, callback, isSpinner)

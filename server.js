@@ -63,10 +63,14 @@ app.post('/upload',
     next();
   },
   (req, res, next) => {
-        const uploadID = (req.body.uploadID) ? req.body.uploadID : new Date().getTime();
-        res.send({status: 'success', uploadID: uploadID, files : (!req.files) ? [] : req.files});
-  }
-)
+    var ModuleUpload = pkg.require(__dirname + '/modules/moduleUpload.js');
+    var mupload = new ModuleUpload(env, pkg, req, res);
+    try {
+        mupload.afterUpload();
+    } catch (err) {
+        res.send(err.toString());
+    }
+});
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
