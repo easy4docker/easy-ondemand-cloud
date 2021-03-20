@@ -29,7 +29,7 @@
 
 		me.removeResult = (postData, callback) => {
 			const comStr = 'rm -fr ' + env.sharedFolder + '/' + postData.data.result;
-			
+
 			exec(comStr,  {maxBuffer: 224 * 2048}, function(err, stdout, stderr) {
 				callback((!err) ? {status:'success'} : {status:'failure', message:err.mrssage});
 			});
@@ -40,6 +40,8 @@
 				code : 'addOndemand',
 				param : postData.data
 			}
+			//callback(postData);
+			// return true;
 			fs.writeFile(env.dataFolder + '/commCron_request' + requestId + '.json', JSON.stringify(data), (err, result) => {
 				fs.writeFile(env.dataFolder + '/commCron/request' + requestId + '.json', JSON.stringify(data), (err, result) => {
 					callback({status:'success'});

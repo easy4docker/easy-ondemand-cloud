@@ -48,19 +48,13 @@ var pkg = {
 }
 app.engine('ect', pkg.ECT({ watch: true, cache: false, root: __dirname + '/views', ext : '.ect' }).render);
 
-app.use(upload.array());
+//app.use(upload.array());
+//app.use(express.static('public'));
 
 app.use(bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies   
   extended: true
 })); 
-
-app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
 
 app.post('/upload', 
   upload.any(),
@@ -69,11 +63,16 @@ app.post('/upload',
     next();
   },
   (req, res, next) => {
-    var APPUPLOAD = pkg.require(__dirname + '/modules/moduleUpload.js');
-    var mupload = new APPUPLOAD(env, pkg, req, res);
-    mupload.runUpload();
+        res.send({status: 'success',filename : (!req.files) ? 'req.file' : req.files[0].path});
   }
 )
+
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
 
 var RESTS = 'get|put|post|delete'.split('|');
 

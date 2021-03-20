@@ -21,6 +21,7 @@
                         Your request has been sent successfully!
                     </div>
                     <div class="card alert-light col-9 p-2 m-0 text-left" v-if="!module !== 'success'">
+                
                         <h3>Request OnDemand Form</h3>
                         <div class="form-group">
                             <label>Repository git URI</label>
@@ -48,12 +49,20 @@
                        <div class="form-group">
                             <label>Input Data (* option)</label>
                             <textarea class="form-control" v-model="form.inputData" rows="6" placeholder="input data"></textarea>
-                        </di>            
+                        </di> 
+                        <div class="form-group">
+                            <label>Upload Inuut Data Files</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile"  @change="formOnFileChanged">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>          
                         <div class="form-group">
                             <button class="btn btn-sm btn-success border border-secondary m-1 mt-2" 
                                 :disabled="!isSubmit()"
                                 v-on:click="submit()">Submit</button>
                         </div>
+                     
                     </div>
                 </div>
             </div>
@@ -65,6 +74,11 @@
     </div> 
 </template>
  
+data() {
+ return {
+ this.Images.selectedFile : null}},methods: {Images_onFileChanged (event) {this.Images.selectedFile = event.target.files[0];
+}}
+
 <script>
 module.exports = {
     data: function() {
@@ -75,7 +89,11 @@ module.exports = {
                 gitHub      : '',
                 userName    : '',
                 password    : '',
-                inputData   : ''
+                inputData   : '',
+                selectedFile: null
+            },
+            Images :{
+                selectedFile : null
             },
             requests : [],
             errors: {}
@@ -92,6 +110,19 @@ module.exports = {
 
     },
     methods :{
+        formOnFileChanged (e) {
+           this.form.selectedFile = e.target.files[0]; 
+
+            this.test();
+        },
+        test() {
+          //  console.log(this.form.selectedFile);
+            var reader = new FileReader();
+            reader.onload = (e) => {
+                alert(99);
+            };
+            reader.readAsDataURL(this.form.selectedFile);
+        },
         cleanForm() {
             var me = this;
             me.form.userName = '';
@@ -130,10 +161,9 @@ module.exports = {
                 cmd : 'onDemandRequest',
                 data : me.form
             }, (result)=> {
-                console.log(result);
                 me.module = 'success';
                 me.getPenddingRequests();
-            }, true);
+            }, false);
         },
         getPenddingRequests() {
             const me = this;
