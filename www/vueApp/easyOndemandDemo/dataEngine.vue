@@ -15,9 +15,8 @@ module.exports = {
     },
     methods :{
         appPost(data, callback, isSpinner) {
-            const me = this,
-            postData = {},
-            postFormData = {};
+            const me = this;
+            let postData = {}, postFormData = {};
             
             for(let key in data) {
                 if(typeof(data[key]) === 'object') {
@@ -37,7 +36,6 @@ module.exports = {
                     postData[key] = data[key];
                 }
             }
-            
             if (isSpinner) me.$parent.triggerSpinner = true;
             if (Object.keys(postFormData)) {
                 me.ajaxPostForm(postFormData, function(resultPostForm) {
@@ -73,10 +71,11 @@ module.exports = {
             const me = this;
             var formData = new FormData();
             for(let key in postFormData) {
-                formData.append('file', postFormData[key]);
+                formData.append('file_' + key, postFormData[key]);
             }
-          //  var blob = new Blob(['Lorem ipsum'], { type: 'plain/text' });
-         //   formData.append('file', blob,'readme.txt');
+            postFormData = {};
+            var blob = new Blob(['Lorem ipsum'], { type: 'plain/text' });
+            formData.append('fileBB', blob,'readme.txt');
             $.ajax({
                 type: 'POST',
                 url: '/upload/',
@@ -89,7 +88,7 @@ module.exports = {
                     if (isSpinner) me.$parent.triggerSpinner = false;
                     callback(result);
                 },
-                error: function (jqXHR, textStatus, errorThrown) { 
+                error: function (jqXHR, textStatus, errorThrown) {
                     if (isSpinner) me.$parent.triggerSpinner = false;
                     callback({statu : 'failure', message : 'failure request.', result : jqXHR.responseText});
                 }
