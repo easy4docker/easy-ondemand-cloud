@@ -63,7 +63,8 @@ app.post('/upload',
     next();
   },
   (req, res, next) => {
-        res.send({status: 'success', uploadID:new Date().getTime(), files : (!req.files) ? [] : req.files});
+        const uploadID = (req.body.uploadID) ? req.body.uploadID : new Date().getTime();
+        res.send({status: 'success', uploadID: uploadID, files : (!req.files) ? [] : req.files});
   }
 )
 
