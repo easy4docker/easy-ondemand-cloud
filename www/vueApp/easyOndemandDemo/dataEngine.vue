@@ -73,9 +73,12 @@ module.exports = {
             for(let key in postFormData) {
                 formData.append(key, postFormData[key]);
             }
-            postFormData = {};
+           
             var blob = new Blob(['Lorem ipsum'], { type: 'plain/text' });
             formData.append('fileBB', blob,'readme.txt');
+
+            postFormData = {};
+
             $.ajax({
                 type: 'POST',
                 url: '/upload/',
