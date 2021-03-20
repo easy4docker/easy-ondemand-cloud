@@ -14,8 +14,7 @@ const { cpuUsage } = require('process');
                 cmd = 'find /tmp/uploaded/* -mmin +3 -delete ';
 
             for (var i = 0; i < files.length; i++) {
-                const fname = files[i].destination + '/F_' + uploadID + '_' + 
-                        files[i].originalname.replae('F_' + uploadID + '_', '');
+                const fname = files[i].destination + '/F_' + uploadID + '_' +  (files[i].originalname.replace('F_' + uploadID + '_', ''));
                 flist.push(fname);
                 cmd += ((cmd) ? ' && ' : '') + 'mv ' + files[i].path + ' ' + fname;
             }
