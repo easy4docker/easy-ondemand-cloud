@@ -18,8 +18,7 @@ module.exports = {
             const me = this,
             postData = {},
             postFormData = {};
-
-            if (isSpinner) me.$parent.triggerSpinner = true;
+            
             for(let key in data) {
                 if(typeof(data[key]) === 'object') {
                     if (data[key] && (data[key].constructor === File || data[key].constructor === Blob)) {
@@ -38,24 +37,29 @@ module.exports = {
                     postData[key] = data[key];
                 }
             }
- 
+            
+            if (isSpinner) me.$parent.triggerSpinner = true;
+            if (Object.keys(postFormData)) {
+                me.ajaxPostForm(postFormData, function(resultPostForm) {
+                    postData.uploadID = resultPostForm.uploadID;
+                    me.ajaxPostData(postData, callback, isSpinner)
+                }, false);
+            } else {
+                me.ajaxPostData(postData, callback, isSpinner);
+            }
+            return true;
+        },
+        ajaxPostData(postData, callback, isSpinner) {
+            const me = this;
             $.ajax({
                 type: 'POST',
                 url: '/api/',
                 data: postData,
                 success: function(result) {
-                    if (Object.keys(postFormData).length) {
-                        
-                        me.appPostForm(postFormData, function() {
-                            callback(result);
-                        }, isSpinner)
-                        
-                        // if (isSpinner) me.$parent.triggerSpinner = false;
-                    } else {
-                        if (isSpinner) me.$parent.triggerSpinner = false;
-                        callback(result);
-                    }
-                    console.log('--A1--');
+                    if (isSpinner) me.$parent.triggerSpinner = false;   
+                    callback(result);
+                    console.log('--A1-->');
+                    console.log(postData);
                 },
                 error: function (jqXHR, textStatus, errorThrown) { 
                     console.log('--B--');
@@ -64,9 +68,8 @@ module.exports = {
                 },
                 dataType: 'JSON'
             });
-            return true;
         },
-        appPostForm(postFormData, callback, isSpinner) {
+        ajaxPostForm(postFormData, callback, isSpinner) {
             const me = this;
             var formData = new FormData();
             for(let key in postFormData) {
@@ -84,7 +87,7 @@ module.exports = {
                 contentType: false,
                 success: function(result) {
                     if (isSpinner) me.$parent.triggerSpinner = false;
-                    callback();
+                    callback(result);
                 },
                 error: function (jqXHR, textStatus, errorThrown) { 
                     if (isSpinner) me.$parent.triggerSpinner = false;
