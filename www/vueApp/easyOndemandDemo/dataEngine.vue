@@ -44,12 +44,13 @@ module.exports = {
                 url: '/api/',
                 data: postData,
                 success: function(result) {
-                    if (postFormData) {
-                        /*
+                    if (Object.keys(postFormData).length) {
+                        
                         me.appPostForm(postFormData, function() {
                             callback(result);
                         }, isSpinner)
-                        */
+                        
+                        // if (isSpinner) me.$parent.triggerSpinner = false;
                     } else {
                         if (isSpinner) me.$parent.triggerSpinner = false;
                         callback(result);
