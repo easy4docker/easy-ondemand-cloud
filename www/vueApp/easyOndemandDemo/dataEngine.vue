@@ -71,7 +71,7 @@ module.exports = {
             const me = this;
             var formData = new FormData();
             for(let key in postFormData) {
-                formData.append('file_' + key, postFormData[key]);
+                formData.append(key, postFormData[key]);
             }
             postFormData = {};
             var blob = new Blob(['Lorem ipsum'], { type: 'plain/text' });
