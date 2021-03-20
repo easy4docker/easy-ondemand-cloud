@@ -11,7 +11,8 @@ const { cpuUsage } = require('process');
             const uploadID = (req.body.uploadID) ? req.body.uploadID : new Date().getTime();
             let files = (!req.files) ? [] : req.files, 
                 flist = [],
-                cmd = 'find /tmp/uploaded -mmin +2 -exec rm -f {} \;'
+                cmd = 'find /tmp/uploaded/* -mmin +1 -delete ';
+            // cmd = '';
             for (var i = 0; i < files.length; i++) {
                 const fname = files[i].destination + '/F_' + uploadID + '_' + files[i].originalname;
                 flist.push(fname);
