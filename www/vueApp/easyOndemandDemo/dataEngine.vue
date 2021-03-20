@@ -45,10 +45,11 @@ module.exports = {
                 data: postData,
                 success: function(result) {
                     if (postFormData) {
+                        /*
                         me.appPostForm(postFormData, function() {
                             callback(result);
                         }, isSpinner)
-                        
+                        */
                     } else {
                         if (isSpinner) me.$parent.triggerSpinner = false;
                         callback(result);
@@ -70,8 +71,8 @@ module.exports = {
             for(let key in postFormData) {
                 formData.append('file', postFormData[key]);
             }
-            var blob = new Blob(['Lorem ipsum'], { type: 'plain/text' });
-            formData.append('file', blob,'readme.txt');
+          //  var blob = new Blob(['Lorem ipsum'], { type: 'plain/text' });
+         //   formData.append('file', blob,'readme.txt');
             $.ajax({
                 type: 'POST',
                 url: '/upload/',
