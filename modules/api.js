@@ -40,6 +40,7 @@
 				code : 'addOndemand',
 				param : postData.data
 			}
+			data.param.uploadID = postData.uploadID;
 			//callback(postData);
 			// return true;
 			fs.writeFile(env.dataFolder + '/commCron_request' + requestId + '.json', JSON.stringify(data), (err, result) => {

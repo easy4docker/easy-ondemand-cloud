@@ -16,8 +16,6 @@ module.exports = {
     methods :{
         appPost(data, callback, isSpinner) {
             const me = this;
-            console.log(data)
-            console.log('AAAAA');
             let postData = {}, postFormData = {};
             
             for(let key in data) {
