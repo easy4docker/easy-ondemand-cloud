@@ -43,11 +43,11 @@
 			data.param.uploadID = postData.uploadID;
 			//callback(postData);
 			// return true;
-			fs.writeFile(env.dataFolder + '/commCron_request' + requestId + '.json', JSON.stringify(data), (err, result) => {
+			// fs.writeFile(env.dataFolder + '/commCron_request' + requestId + '.json', JSON.stringify(data), (err, result) => {
 				fs.writeFile(env.dataFolder + '/commCron/request' + requestId + '.json', JSON.stringify(data), (err, result) => {
 					callback({status:'success'});
 				})
-			})
+			// })
 
 		}
 
