@@ -19,7 +19,7 @@ var env = {
     sharedFolder :'/var/_sharedFolder'
 }
 
-const upload = multer({ dest: env.dataFolder +'/upload' });
+const upload = multer({ dest: '/tmp/upload' });
 
 // var accessLogStream = fs.createWriteStream(path.join(env.dataFolder, 'access.log'), {flags: 'a'})
 // app.use(morgan('combined', {stream: accessLogStream}))
