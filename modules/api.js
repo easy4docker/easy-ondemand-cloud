@@ -41,14 +41,9 @@
 				param : postData.data
 			}
 			data.param.uploadID = postData.uploadID;
-			//callback(postData);
-			// return true;
-			// fs.writeFile(env.dataFolder + '/commCron_request' + requestId + '.json', JSON.stringify(data), (err, result) => {
-				fs.writeFile(env.dataFolder + '/commCron/request' + requestId + '.json', JSON.stringify(data), (err, result) => {
-					callback({status:'success'});
-				})
-			// })
-
+			fs.writeFile(env.dataFolder + '/commCron/request' + requestId + '.json', JSON.stringify(data), (err, result) => {
+				callback({status:'success'});
+			})
 		}
 
 		me.getOnDemandResults = (postData, callback) => {
@@ -61,7 +56,6 @@
 				});
 			}
 		}
-
 		me.getFileContent = (postData, callback) => {
 			const dt = postData.data;
 			const fn = env.sharedFolder + '/' + dt.ondemand + '/' + dt.ftype + '/' + dt.file;
