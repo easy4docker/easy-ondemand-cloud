@@ -2,7 +2,7 @@ const express = require('express');
 const multer  = require('multer')
 
 const bodyParser = require('body-parser');
-const upload = multer({ dest: '/tmp/uploaded' });
+
 const app = express();
 
 var path = require('path');
@@ -18,6 +18,8 @@ var env = {
     appFolder : '/var/_localApp',
     sharedFolder :'/var/_sharedFolder'
 }
+
+const upload = multer({ dest: env.dataFolder +'/upload' });
 
 // var accessLogStream = fs.createWriteStream(path.join(env.dataFolder, 'access.log'), {flags: 'a'})
 // app.use(morgan('combined', {stream: accessLogStream}))
