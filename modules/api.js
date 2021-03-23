@@ -37,13 +37,17 @@
 		me.onDemandRequest= (postData, callback) => {
 			const requestId = new Date().getTime(); 
 			const data = {
-				code : 'addOndemand',
-				param : postData.data
+				code		:'addOndemand',
+				param 		: postData.data,
+				requestId	: requestId
 			}
-			data.param.uploadID = postData.uploadID;
-			fs.writeFile(env.dataFolder + '/commCron/request' + requestId + '.json', JSON.stringify(data), (err, result) => {
-				callback({status:'success'});
-			})
+			exec('mkdir -p ' + env.dataFolder + '/onDemand',  {maxBuffer: 224 * 2048}, (err, stdout, stderr) => {
+				fs.writeFile(env.dataFolder + '/onDemand/request_' + requestId + '.json', 
+					JSON.stringify(data), (err, result) => {
+					callback({status:'success'});
+				})
+			});
+
 		}
 
 		me.getOnDemandResults = (postData, callback) => {
