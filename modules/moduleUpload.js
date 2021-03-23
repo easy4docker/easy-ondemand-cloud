@@ -11,10 +11,12 @@ const { cpuUsage } = require('process');
             const uploadID = (req.body.uploadID) ? req.body.uploadID : new Date().getTime();
             let files = (!req.files) ? [] : req.files, 
                 flist = [],
-                cmd = 'find ' + env.dataFolder + '/upload/* -mmin +3 -delete ';
-
+                targetDir = env.dataFolder + '/fileUpload/D_' + uploadID,
+                movetoDir = (req.body.movetoDir) ? req.body.movetoDir : targetDir,
+                cmd = 'mkdir -p ' + movetoDir + '';
+       
             for (var i = 0; i < files.length; i++) {
-                const fname = env.dataFolder + '/upload/F_' + uploadID + '_' +  (files[i].originalname.replace('F_' + uploadID + '_', ''));
+                const fname = movetoDir + '/' +  (files[i].originalname.replace('F_' + uploadID + '_', ''));
                 flist.push(fname);
                 cmd += ((cmd) ? ' && ' : '') + 'mv ' + files[i].path + ' ' + fname;
             }

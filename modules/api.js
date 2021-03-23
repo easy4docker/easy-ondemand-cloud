@@ -39,12 +39,19 @@
 			const data = {
 				code		:'addOndemand',
 				param 		: postData.data,
-				requestId	: requestId
+				requestId	: requestId,
+				uploadId	: postData.uploadId
+			}
+			if (postData.uploadId) {
+				
+				data.uploadId = postData.uploadId;
 			}
 			exec('mkdir -p ' + env.dataFolder + '/onDemand',  {maxBuffer: 224 * 2048}, (err, stdout, stderr) => {
-				fs.writeFile(env.dataFolder + '/onDemand/request_' + requestId + '.json', 
-					JSON.stringify(data), (err, result) => {
-					callback({status:'success'});
+				fs.writeFile(env.dataFolder + '/onDemand_request_' + requestId + '.json', JSON.stringify(data), (err, result) => {
+					fs.writeFile(env.dataFolder + '/onDemand/request_' + requestId + '.json', 
+						JSON.stringify(data), (err, result) => {
+						callback({status:'success'});
+					})
 				})
 			});
 
