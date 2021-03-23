@@ -39,7 +39,7 @@ module.exports = {
             if (isSpinner) me.$parent.triggerSpinner = true;
             if (Object.keys(postFormData).length) {
                 me.ajaxPostForm(postFormData, function(resultPostForm) {
-                    postData.uploadID = resultPostForm.uploadID;
+                    postData.uploadId = resultPostForm.uploadId;
                     me.ajaxPostData(postData, callback, isSpinner)
                 }, false);
             } else {
@@ -89,6 +89,7 @@ module.exports = {
                 contentType: false,
                 success: function(result) {
                     if (isSpinner) me.$parent.triggerSpinner = false;
+                    console.log(result);
                     callback(result);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
