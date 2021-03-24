@@ -20,7 +20,7 @@
                     <div class="card alert-light col-9 p-2 m-0 text-left" v-if="module === 'success'">
                         Your request has been sent successfully!
                     </div>
-                    <div class="card alert-light col-9 p-2 m-0 text-left" v-if="!module !== 'success'">
+                    <div class="card alert-light col-9 p-2 m-0 text-left" v-if="module !== 'success'">
                 
                         <h3>Request OnDemand Form</h3>
                         <div class="form-group">
