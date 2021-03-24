@@ -17,8 +17,9 @@
                         </div>
                     
                     </div>
-                    <div class="card alert-light col-9 p-2 m-0 text-left" v-if="module === 'success'">
-                        Your request has been sent successfully!
+                    <div class="card alert-light col-9 p-3 m-0 text-center" v-if="module === 'success'">
+                        <h5 class="m-3">Your request has been sent successfully!</h5>
+                        <spam class="m-3"><button class="btn btn-warning" v-on:click="initForm()">Confirm</button></span>
                     </div>
                     <div class="card alert-light col-9 p-2 m-0 text-left" v-if="module !== 'success'">
                 
@@ -120,6 +121,12 @@ module.exports = {
                 me.loadingStatus = false;
             };
             reader.readAsDataURL(this.form.selectedFile);
+        },
+        initForm() {
+            var me = this;
+            me.module = '';
+            me.form.userName = '';
+            me.form.password = '';
         },
         cleanForm() {
             var me = this;
