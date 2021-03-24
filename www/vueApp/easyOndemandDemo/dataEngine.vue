@@ -56,11 +56,8 @@ module.exports = {
                 success: function(result) {
                     if (isSpinner) me.$parent.triggerSpinner = false;   
                     callback(result);
-                    console.log('--A1-->');
-                    console.log(postData);
                 },
                 error: function (jqXHR, textStatus, errorThrown) { 
-                    console.log('--B--');
                     if (isSpinner) me.$parent.triggerSpinner = false;
                     callback({statu : 'failure', message : 'failure request.', result : jqXHR.responseText});
                 },
@@ -73,12 +70,12 @@ module.exports = {
             for(let key in postFormData) {
                 formData.append(key, postFormData[key]);
             }
-           
+           /*
             var blob = new Blob(['Lorem ipsum'], { type: 'plain/text' });
             formData.append('fileBB', blob,'readme.txt');
 
             postFormData = {};
-
+            */
             $.ajax({
                 type: 'POST',
                 url: '/upload/',

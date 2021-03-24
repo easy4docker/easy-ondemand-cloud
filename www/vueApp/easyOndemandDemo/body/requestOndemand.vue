@@ -92,6 +92,7 @@ module.exports = {
                 inputData   : '',
                 selectedFile: null
             },
+            loadingStatus : false,
             Images :{
                 selectedFile : null
             },
@@ -111,15 +112,12 @@ module.exports = {
     },
     methods :{
         formOnFileChanged (e) {
-           this.form.selectedFile = e.target.files[0]; 
-
-            this.test();
-        },
-        test() {
-          //  console.log(this.form.selectedFile);
+            var me = this;
+            me.form.selectedFile = e.target.files[0]; 
+            me.loadingStatus = true;
             var reader = new FileReader();
             reader.onload = (e) => {
-                alert(99);
+                me.loadingStatus = false;
             };
             reader.readAsDataURL(this.form.selectedFile);
         },
@@ -149,7 +147,7 @@ module.exports = {
         },
         isSubmit() {
             var me = this;
-            return (me.gitUrlValidation()) ? true : false;
+            return (me.gitUrlValidation() && !me.loadingStatus) ? true : false;
         },
         showError() {
             const me = this;
