@@ -22,7 +22,7 @@
 			}
 		};
 		me.getPenddingRequests = (postData, callback) => {
-			fs.readdir(env.dataFolder + '/penddingOnDemand', (err, list) => {
+			fs.readdir(env.dataFolder + '/_pendding', (err, list) => {
 				callback({status:'success', list:(!err) ? list : []});
 			});
 		}
@@ -46,7 +46,7 @@
 				
 				data.uploadId = postData.uploadId;
 			}
-			let cmd = 'mkdir -p ' + env.dataFolder + '/penddingOnDemand && echo "' + new Date().getTime() + '" > ' + env.dataFolder + '/penddingOnDemand/task_' + requestId + ' && ';
+			let cmd = 'mkdir -p ' + env.dataFolder + '/_pendding && echo "' + new Date().getTime() + '" > ' + env.dataFolder + '/_pendding/OnDemand_' + requestId + ' && ';
 			cmd += 'mkdir -p ' + env.dataFolder + '/onDemand';
 			exec(cmd,  {maxBuffer: 224 * 2048}, (err, stdout, stderr) => {
 				fs.writeFile(env.dataFolder + '/onDemand/request_' + requestId + '.json', 
