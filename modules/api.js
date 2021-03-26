@@ -46,7 +46,9 @@
 				
 				data.uploadId = postData.uploadId;
 			}
-			exec('mkdir -p ' + env.dataFolder + '/onDemand',  {maxBuffer: 224 * 2048}, (err, stdout, stderr) => {
+			let cmd = 'mkdir -p ' + env.dataFolder + '/penddingOnDemand && echo "' + new Date().getTime() + '" > ' + env.dataFolder + '/penddingOnDemand/task_' + requestId;
+			cmd += 'mkdir -p ' + env.dataFolder + '/onDemand';
+			exec(cmd,  {maxBuffer: 224 * 2048}, (err, stdout, stderr) => {
 				fs.writeFile(env.dataFolder + '/onDemand/request_' + requestId + '.json', 
 					JSON.stringify(data), (err, result) => {
 					callback({status:'success'});
