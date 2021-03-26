@@ -17,8 +17,10 @@
             </div>
             <div class="pull-right pl-1 text-dark developer-mark">Developer : John Xu</div>
             <div class="container-fluid mt-1 head-menu-2 text-left text-light">
-                <a href="JavaScript:void(0)" v-if="root.module !== 'requestOndemand'"  v-on:click="module('requestOndemand')" class="m-3">Request OnDemand</a>
-                <b class="m-3" v-if="root.module === 'requestOndemand'">Request OnDemand</b> |
+                <a href="JavaScript:void(0)" v-if="root.module !== 'Ondemand'"  v-on:click="module('Ondemand')" class="m-3">OnDemand</a>
+                <b class="m-3" v-if="root.module === 'Ondemand'">OnDemand</b> |
+                <a href="JavaScript:void(0)" v-if="root.module !== 'OffRoad'"  v-on:click="module('OffRoad')" class="m-3">OffRoad</a>
+                <b class="m-3" v-if="root.module === 'OffRoad'">OffRoad</b> |
                 <a href="JavaScript:void(0)" v-on:click="module('ondemandResults')" v-if="root.module !== 'ondemandResults'" class="m-3 ml-1">OnDemand Results</a>
                 <b class="m-3" v-if="root.module === 'ondemandResults'">OnDemand Results</b> |
                 <a href="JavaScript:void(0)" v-if="root.module !== 'documents'"  v-on:click="module('documents')" class="m-3">Documents</a>
