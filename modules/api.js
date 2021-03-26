@@ -22,8 +22,13 @@
 			}
 		};
 		me.getPenddingRequests = (postData, callback) => {
-			fs.readdir(env.dataFolder + '/commCron', (err, list) => {
-				callback((!err) ? {status:'success', list:list} : {status:'failure', message:err.mrssage});
+			fs.readdir(env.dataFolder + '/penddingOnDemand', (errp, plist) => {
+				fs.readdir(env.dataFolder + '/commCron', (erro, olist) => {
+					const list = [];
+					if (!errp) for (let p in plist) list.push(plist[p]);
+					if (!erro) for (let o in olist) list.push(olist[o]);
+					callback({status:'success', list:list});
+				});
 			});
 		}
 
