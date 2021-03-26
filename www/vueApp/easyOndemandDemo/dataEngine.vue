@@ -25,9 +25,14 @@ module.exports = {
                     } else {
                         for (let subKey in data[key]) {
                             if (data[key][subKey] && (data[key][subKey].constructor === File || data[key][subKey].constructor === Blob)) {
-                                postFormData[key + '['+ subKey + ']'] = data[key][subKey];;
+                                postFormData[key + '['+ subKey + ']'] = data[key][subKey];
                             } else {
                                 postData[key + '['+ subKey + ']'] = data[key][subKey];
+                                
+                                // inputData need save as a file. 
+                                if (key === 'inputData') {
+                                    postFormData[key + '['+ subKey + ']'] = data[key][subKey];
+                                }
                             }
                         }
                     }
@@ -67,15 +72,15 @@ module.exports = {
         ajaxPostForm(postFormData, callback, isSpinner) {
             const me = this;
             var formData = new FormData();
+            console.log(postFormData);
             for(let key in postFormData) {
                 formData.append(key, postFormData[key]);
             }
-           /*
-            var blob = new Blob(['Lorem ipsum'], { type: 'plain/text' });
-            formData.append('fileBB', blob,'readme.txt');
-
+            var blob = new Blob([postFormData.inputData], { type: 'plain/text' });
+            formData.append('fileInputData', blob, 'input.Data');
+    
             postFormData = {};
-            */
+
             $.ajax({
                 type: 'POST',
                 url: '/upload/',
