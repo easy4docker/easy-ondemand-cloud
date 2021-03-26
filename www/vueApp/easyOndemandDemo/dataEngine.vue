@@ -76,13 +76,9 @@ module.exports = {
             for(let key in postFormData) {
                 formData.append(key, postFormData[key]);
             }
-            //console.log(postFormData['data[inputData]']);
-           // return true;
             var blob = new Blob([postFormData.inputData], { type: 'plain/text' });
             formData.append('file', blob, 'input.Data');
-    
             postFormData = {};
-
             $.ajax({
                 type: 'POST',
                 url: '/upload/',
@@ -93,7 +89,6 @@ module.exports = {
                 contentType: false,
                 success: function(result) {
                     if (isSpinner) me.$parent.triggerSpinner = false;
-                    console.log(result);
                     callback(result);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

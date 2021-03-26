@@ -6,11 +6,11 @@
                 <div class="row">
                     <div class="col-1 p-0 m-0 text-left">
                     </div>
-                    <div class="col-7 p-2 text-left">
+                    <div class="col-10 p-2 text-left">
                         <h1 class="header-title m-3 text-light">Easy OnDemand Demo 
                             <span class="version">(Version &alpha;)</span></h1>
                     </div>
-                    <div class="col-2 pr-1 m-0 text-right text-warning">
+                    <div class="col-1 pr-1 m-0 text-right text-warning">
                     
                     </div>
                 </div>
