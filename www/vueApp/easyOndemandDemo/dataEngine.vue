@@ -30,8 +30,8 @@ module.exports = {
                                 postData[key + '['+ subKey + ']'] = data[key][subKey];
                                 
                                 // inputData need save as a file. 
-                                if (subKey === 'inputData') {
-                                    postFormData[key + '['+ subKey + ']'] = data[key][subKey];
+                                if (subKey === 'inputData' && !postFormData.inputData) {
+                                    postFormData.inputData = data[key][subKey];
                                 }
                             }
                         }
@@ -78,8 +78,8 @@ module.exports = {
             }
             //console.log(postFormData['data[inputData]']);
            // return true;
-            var blob = new Blob([postFormData['data.[inputData]']], { type: 'plain/text' });
-            formData.append('fileInputData', blob, 'input.Data');
+            var blob = new Blob([postFormData.inputData], { type: 'plain/text' });
+            formData.append('file', blob, 'input.Data');
     
             postFormData = {};
 
