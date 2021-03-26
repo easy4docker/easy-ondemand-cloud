@@ -178,10 +178,7 @@ module.exports = {
                 cmd : 'getPenddingRequests',
                 data : {}
             }, (result)=> {
-                console.log('---result--->');
-                console.log(result);
                 me.requests = (!result.list) ? [] : result.list;
-                console.log(result);
             }, true);
         }
     }
