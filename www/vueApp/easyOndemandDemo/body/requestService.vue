@@ -1,7 +1,7 @@
 <template>
     <div class="body-card m-1">
         <div class="card-body m-0 p-1">
-        {{root.module}}
+        ={{form.serviceType}}={{servicetype}}
             <div class="container-fluid m-0">
                 <div class="row">
                     <div class="col-3 p-1 m-0 ">
@@ -83,6 +83,7 @@ data() {
 
 <script>
 module.exports = {
+    props : ['servicetype'],
     data: function() {
         return {
             root :  this.$parent.root,
@@ -92,6 +93,7 @@ module.exports = {
                 userName    : '',
                 password    : '',
                 inputData   : '',
+                serviceType : this.servicetype,
                 selectedFile: null
             },
             loadingStatus : false,
@@ -104,6 +106,7 @@ module.exports = {
     },
     mounted() {
         const me = this;
+        me.form.serviceType = me.serviceType;
         // Add the following code if you want the name of the file appear on select
         $(".custom-file-input").on("change", function() {
         var fileName = $(this).val().split("\\").pop();

@@ -43,17 +43,20 @@
 				uploadId	: postData.uploadId
 			}
 			if (postData.uploadId) {
-				
 				data.uploadId = postData.uploadId;
 			}
-			let cmd = 'mkdir -p ' + env.dataFolder + '/_pendding && echo "' + new Date().getTime() + '" > ' + env.dataFolder + '/_pendding/OnDemand_' + requestId + ' && ';
-			cmd += 'mkdir -p ' + env.dataFolder + '/onDemand';
-			exec(cmd,  {maxBuffer: 224 * 2048}, (err, stdout, stderr) => {
-				fs.writeFile(env.dataFolder + '/onDemand/request_' + requestId + '.json', 
-					JSON.stringify(data), (err, result) => {
-					callback({status:'success'});
-				})
-			});
+			if (!postData.data || !postData.data.serviceType) {
+				callback({status:'failure', message: 'wrong service type!'});
+			} else {
+				let cmd = 'mkdir -p ' + env.dataFolder + '/_pendding && echo "' + new Date().getTime() + '" > ' + env.dataFolder + '/_pendding/_' + postData.data.serviceType + requestId + ' && ';
+				cmd += 'mkdir -p ' + env.dataFolder + '/' + postData.data.serviceType;
+				exec(cmd,  {maxBuffer: 224 * 2048}, (err, stdout, stderr) => {
+					fs.writeFile(env.dataFolder + '/' + postData.data.serviceType + '/request_' + requestId + '.json', 
+						JSON.stringify(data), (err, result) => {
+						callback({status:'success'});
+					})
+				});
+			}
 		}
 
 		me.getOnDemandResults = (postData, callback) => {

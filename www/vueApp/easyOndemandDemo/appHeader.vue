@@ -17,12 +17,12 @@
             </div>
             <div class="pull-right pl-1 text-dark developer-mark">Developer : John Xu</div>
             <div class="container-fluid mt-1 head-menu-2 text-left text-light">
-                <a href="JavaScript:void(0)" v-if="root.module !== 'Ondemand'"  v-on:click="module('Ondemand')" class="m-3">On Demand Service</a>
-                <b class="m-3" v-if="root.module === 'Ondemand'">On Demand Service</b> |
-                <a href="JavaScript:void(0)" v-if="root.module !== 'OffRoad'"  v-on:click="module('OffRoad')" class="m-3">Off Road Service</a>
-                <b class="m-3" v-if="root.module === 'OffRoad'">Off Road Service</b> |
-                <a href="JavaScript:void(0)" v-on:click="module('ondemandResults')" v-if="root.module !== 'ondemandResults'" class="m-3 ml-1">OnDemand Results</a>
-                <b class="m-3" v-if="root.module === 'ondemandResults'">OnDemand Results</b> |
+                <a href="JavaScript:void(0)" v-if="root.module !== 'onDemand'"  v-on:click="module('onDemand')" class="m-3">On Demand Service</a>
+                <b class="m-3" v-if="root.module === 'onDemand'">On Demand Service</b> |
+                <a href="JavaScript:void(0)" v-if="root.module !== 'offRoad'"  v-on:click="module('offRoad')" class="m-3">Off Road Service</a>
+                <b class="m-3" v-if="root.module === 'offRoad'">Off Road Service</b> |
+                <a href="JavaScript:void(0)" v-on:click="module('ondemandResults')" v-if="root.module !== 'ondemandResults'" class="m-3 ml-1">ondemand Results</a>
+                <b class="m-3" v-if="root.module === 'ondemandResults'">ondemand Results</b> |
                 <a href="JavaScript:void(0)" v-if="root.module !== 'documents'"  v-on:click="module('documents')" class="m-3">Documents</a>
                 <b class="m-3" v-if="root.module === 'documents'">Documents</b>
             </div>
