@@ -24,10 +24,6 @@
                                     {{o}}
                                 </div>
                             </div>
-                            <div v-if="!requests.length"
-                                class="m-1 p-1 text-left text-secondary">
-                                No pendding request.
-                            </div> 
                         </div>
                     
                     </div>
