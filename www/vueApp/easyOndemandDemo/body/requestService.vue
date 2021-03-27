@@ -5,10 +5,24 @@
                 <div class="row">
                     <div class="col-3 p-1 m-0 ">
                         <div class="card ondemand-requestions-section mt-0 mr-1 p-2">
-                            <div class="pl-2 m-0 text-left"><h5>Pendding requests:</h5></div>
-                            <div v-if="requests.length" v-for="o in requests"
-                                class="border border-secondary rounded m-1 p-1 text-left">
-                                {{o}}
+                            <div class="pl-2 m-0 text-center"><h5>Pendding Requests</h5></div>
+                            <div class="border border-secondary rounded m-1 p-1 text-left">
+                                <b class="mb-1">On Demand:</b>
+                                <div v-if="requests.length" v-for="o in requests" class="m-1 p-1 border alert-secondary">
+                                    {{o}}
+                                </div>
+                            </div>
+                            <div class="border border-secondary rounded m-1 p-1 text-left">
+                                <b class="mb-1">Off Road:</b>
+                                <div v-if="requests.length" v-for="o in requests" class="m-1 p-1 border alert-secondary">
+                                    {{o}}
+                                </div>
+                            </div>
+                            <div class="border border-secondary rounded m-1 p-1 text-left">
+                                <b class="mb-1">Results:</b>
+                                <div v-if="requests.length" v-for="o in requests" class="m-1 p-1 border alert-secondary">
+                                    {{o}}
+                                </div>
                             </div>
                             <div v-if="!requests.length"
                                 class="m-1 p-1 text-left text-secondary">
@@ -22,7 +36,6 @@
                         <spam class="m-3"><button class="btn btn-warning" v-on:click="initForm()">Confirm</button></span>
                     </div>
                     <div class="card alert-light col-9 p-2 m-0 text-left" v-if="module !== 'success'">
-                
                         <h3>Request OnDemand Form</h3>
                         <div class="form-group">
                             <label>Repository git URI</label>
