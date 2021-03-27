@@ -1,7 +1,6 @@
 <template>
     <div class="body-card m-1">
         <div class="card-body m-0 p-1">
-        ={{form.serviceType}}={{servicetype}}
             <div class="container-fluid m-0">
                 <div class="row">
                     <div class="col-3 p-1 m-0 ">
@@ -106,8 +105,6 @@ module.exports = {
     },
     mounted() {
         const me = this;
-       // me.form.serviceType = me.servicetype;
-        // Add the following code if you want the name of the file appear on select
         $(".custom-file-input").on("change", function() {
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);

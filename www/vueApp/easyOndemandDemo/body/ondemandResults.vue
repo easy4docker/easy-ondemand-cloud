@@ -6,8 +6,6 @@
                     <div class="col-2 p-1 m-0 ">
                         <div class="card ondemand-requestions-section mt-0 mr-1 p-2">
                             <div class="pl-2 m-0 text-left"><h5>Results:</h5></div>
-
-
                             <span v-if="results.length" v-for="o in results">
                                 <div v-on:click="selectResult(o)" v-if="o !== currentResult"
                                     class="border border-secondary rounded m-1 p-1 text-left">
