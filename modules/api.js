@@ -45,7 +45,7 @@
 			if (postData.uploadId) {
 				data.uploadId = postData.uploadId;
 			}
-			if (!postData.data || !postData.data.serviceType) {
+			if (!postData.data || ['onDemand', 'offRoad'].indexOf(postData.data.serviceType) === -1) {
 				callback({status:'failure', message: 'wrong service type!'});
 			} else {
 				let cmd = 'mkdir -p ' + env.dataFolder + '/_pendding && echo "' + new Date().getTime() + '" > ' + env.dataFolder + '/_pendding/_' + postData.data.serviceType + requestId + ' && ';
