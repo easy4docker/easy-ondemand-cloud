@@ -21,23 +21,30 @@
 					callback(postData);
 			}
 		};
+
+		me.getDir = (d, cbk) => {
+			fs.readdir(d, (err, dlist) => {
+				const list = (!err) ? dlist : [];
+				cbk(list.filter((rec) => { return (rec[0] === '.') ? false: true}));
+			});
+		}
 		me.getPenddingRequests = (postData, callback) => {
 			const _f= {};
 			_f['pendding'] = (cbk) => {
-				fs.readdir(env.dataFolder + '/_pendding', (err, list) => {
-					cbk((!err) ? list : []);
-				});
+				me.getDir(env.dataFolder + '/_pendding', cbk);
 			}
 			_f['offRoad'] = (cbk) => {
-				fs.readdir(env.dataFolder + '/offRoad', (err, list) => {
-					cbk((!err) ? list : []);
-				});
+				me.getDir(env.dataFolder + '/offRoad', cbk);
+			}
+			_f['results'] = (cbk) => {
+				me.getDir(env.sharedFolder, cbk);
 			}
 			cp.serial(_f, (dt) => {
 				callback({status:'success', 
 					requests: {
 						pendding : cp.data.pendding,
-						offRoad  : cp.data.offRoad
+						offRoad  : cp.data.offRoad,
+						results  : cp.data.results
 					}
 				});
 			}, 30000)
