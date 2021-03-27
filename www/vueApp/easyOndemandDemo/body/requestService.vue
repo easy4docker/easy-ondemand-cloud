@@ -8,7 +8,7 @@
                             <div class="pl-2 m-0 text-center"><h5>Pendding Requests</h5></div>
                             <div class="border border-secondary rounded m-1 p-1 text-left">
                                 <b class="mb-1">On Demand:</b>
-                                <div v-if="requests.length" v-for="o in requests" class="m-1 p-1 border alert-secondary">
+                                <div v-if="requests.pendding" v-for="o in requests.pendding" class="m-1 p-1 border alert-secondary">
                                     {{o}}
                                 </div>
                             </div>
@@ -112,7 +112,7 @@ module.exports = {
             Images :{
                 selectedFile : null
             },
-            requests : [],
+            requests : {},
             errors: {}
         }
     },
@@ -192,7 +192,7 @@ module.exports = {
                 cmd : 'getPenddingRequests',
                 data : {}
             }, (result)=> {
-                me.requests = (!result.list) ? [] : result.list;
+                me.requests = (!result.requests) ? [] : result.requests;
             }, true);
         }
     }

@@ -22,9 +22,25 @@
 			}
 		};
 		me.getPenddingRequests = (postData, callback) => {
-			fs.readdir(env.dataFolder + '/_pendding', (err, list) => {
-				callback({status:'success', list:(!err) ? list : []});
-			});
+			const _f= {};
+			_f['pendding'] = (cbk) => {
+				fs.readdir(env.dataFolder + '/_pendding', (err, list) => {
+					cbk((!err) ? list : []);
+				});
+			}
+			_f['offRoad'] = (cbk) => {
+				fs.readdir(env.dataFolder + '/offRoad', (err, list) => {
+					cbk((!err) ? list : []);
+				});
+			}
+			cp.serial(_f, (dt) => {
+				callback({status:'success', 
+					requests: {
+						pendding : cp.data.pendding,
+						offRoad  : cp.data.offRoad
+					}
+				});
+			}, 30000)
 		}
 
 		me.removeResult = (postData, callback) => {
