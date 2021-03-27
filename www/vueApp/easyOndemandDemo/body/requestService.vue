@@ -20,7 +20,7 @@
                             </div>
                             <div class="border border-secondary rounded m-1 p-1 text-left">
                                 <b class="mb-1">Results:</b>
-                                <div v-if="requests.length" v-for="o in requests" class="m-1 p-1 border alert-secondary">
+                                <div v-if="!!requests && requests.results.length" v-for="o in requests.results" class="m-1 p-1 border alert-secondary">
                                     {{o}}
                                 </div>
                             </div>
