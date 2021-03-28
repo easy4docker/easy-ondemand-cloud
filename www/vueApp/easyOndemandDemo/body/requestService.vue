@@ -126,7 +126,7 @@ module.exports = {
     methods :{
 		lTruncate(str, length) {
             const dt = str.length - length;
-            return '...' + str.slice((dt > 0)? dt : 0, str.length)
+            return str.slice(0, 4) + '...' + str.slice((dt > 0)? dt : 0, str.length)
 		},
         showResult(v) {
             const a = v.match(/\_([0-9]+)$/);
