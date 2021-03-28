@@ -20,6 +20,20 @@
 					callback(postData);
 			}
 		};
+
+		me.toHHMMSS = (secs) => {
+			var sec_num = parseInt(secs, 10)
+			var hours   = Math.floor(sec_num / 3600)
+			var minutes = Math.floor(sec_num / 60) % 60
+			var seconds = sec_num % 60
+		
+			return [hours,minutes,seconds]
+				.map(v => v < 10 ? "0" + v : v)
+				.filter((v,i) => v !== "00" || i > 0)
+				.join(":")
+		};
+
+		
 		me.getPaddingDir = (d, callback) => {
 			fs.readdir(d, (err, list) => {
 				list = list.filter((rec) => { return (rec[0] === '.') ? false: true});
@@ -39,7 +53,7 @@
 								const data = {
 									name : list[o],
 									repo: repo,
-									tm : parseInt(dt * 0.001 / 60) + ' mins'
+									tm : me.toHHMMSS(parseInt(dt * 0.001 / 60))
 								}
 								cbk(data);
 							});
