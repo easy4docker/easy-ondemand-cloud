@@ -9,13 +9,13 @@
                             <div class="border border-secondary rounded m-1 p-1 text-left">
                                 <b class="mb-1 ml-1">On Demand:</b><i class="fa fa-refresh fa-spin pull-right text-success mr-2" style="font-size:24px"></i>
                                 <div v-if="requests.pendding" v-for="o in requests.pendding" class="m-1 p-1 border alert-secondary">
-                                    {{showPadding(o)}}
+                                    {{o.tm}}
                                 </div>
                             </div>
                             <div class="border border-secondary rounded m-1 p-1 text-left">
                                 <b class="mb-1 ml-1">Off Road:</b><i class="fa fa-refresh fa-spin pull-right text-success mr-2" style="font-size:24px"></i>
                                 <div v-if="requests.offRoad" v-for="o in requests.offRoad" class="m-1 p-1 border alert-secondary">
-                                    {{showPadding(o)}}
+                                    {{o.tm}}
                                 </div>
                             </div>
                             <div class="pl-2 m-0 text-left text-info"><h5>Results</h5></div>
@@ -125,9 +125,7 @@ module.exports = {
     },
     methods :{
         showPadding(v) {
-            const t = parseInt(v.replace(/^([^\_]+)\_/, '').replace(/\.json$/, ''));
-            const dt = new Date().getTime() - t;
-            return parseInt(dt * 0.001 / 60) + ' mins';
+            return v;
         },
         showResult(v) {
             const a = v.match(/\_([0-9]+)$/);

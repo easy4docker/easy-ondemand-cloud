@@ -21,6 +21,35 @@
 			}
 		};
 
+		me.getPaddingDir = (d, callback) => {
+			fs.readdir(d, (err, list) => {
+				list = list.filter((rec) => { return (rec[0] === '.') ? false: true});
+				const _f = {};
+
+				for (let o in list) {
+					_f['p_' + o] = ((o) => {
+						return (cbk) => {
+							const t = parseInt(list[o].replace(/^([^\_]+)\_/, '').replace(/\.json$/, ''));
+							const dt = new Date().getTime() - t;
+							const d = {
+								name : list[o],
+								tm : parseInt(dt * 0.001 / 60) + ' mins'
+							}
+							cbk(d);
+						}
+					})(o)
+				}
+				const cp = new pkg.crowdProcess();
+				cp.serial(_f, (d) => {
+					const rlist = [];
+					for (let o in list) {
+						rlist.push(cp.data['p_' + o]);
+					}
+					callback(rlist);
+				}, 3000);
+			});
+		}
+
 		me.getDir = (d, callback) => {
 			fs.readdir(d, (err, list) => {
 				list = list.filter((rec) => { return (rec[0] === '.') ? false: true});
@@ -39,10 +68,11 @@
 				}, 3000);
 			});
 		}
+
 		me.getPenddingRequests = (postData, callback) => {
 			const _f= {};
 			_f['pendding'] = (cbk) => {
-				me.getDir(env.dataFolder + '/_pendding', cbk);
+				me.getPaddingDir(env.dataFolder + '/_pendding', cbk);
 			}
 			_f['results'] = (cbk) => {
 				me.getDir(env.sharedFolder, cbk);
@@ -51,8 +81,8 @@
 			cp.serial(_f, (dt) => {
 				callback({status:'success', 
 					requests: {
-						pendding : cp.data.pendding.filter((v) => {  return (/^onDemand\_/.test(v)) ? true : false; }),
-						offRoad  : cp.data.pendding.filter((v) => {  return (/^offRoad\_/.test(v)) ? true : false; }),
+						pendding : cp.data.pendding.filter((v) => {  return (/^onDemand\_/.test(v.name)) ? true : false; }),
+						offRoad  : cp.data.pendding.filter((v) => {  return (/^offRoad\_/.test(v.name)) ? true : false; }),
 						results  : cp.data.results
 					}
 				});
