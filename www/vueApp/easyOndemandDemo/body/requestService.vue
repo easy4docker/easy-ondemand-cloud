@@ -25,7 +25,6 @@
                                 </div>
                             </div>
                         </div>
-                    
                     </div>
                     <div class="card alert-light col-9 p-3 m-0 text-center" v-if="module === 'success'">
                         <h5 class="m-3">Your request has been sent successfully!</h5>
