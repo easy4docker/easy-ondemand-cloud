@@ -29,13 +29,21 @@
 				for (let o in list) {
 					_f['p_' + o] = ((o) => {
 						return (cbk) => {
-							const t = parseInt(list[o].replace(/^([^\_]+)\_/, '').replace(/\.json$/, ''));
-							const dt = new Date().getTime() - t;
-							const d = {
-								name : list[o],
-								tm : parseInt(dt * 0.001 / 60) + ' mins'
-							}
-							cbk(d);
+							pkg.readJson(d + '/' + list[o], (jdt) => {
+								const gitHub = (!jdt || !jdt.param || !jdt.param.gitHub) ? '' : jdt.param.gitHub;
+								const regex = /([^/]+)\/([^/]+)\.git$/;
+								const uri_a = gitHub.match(regex);
+								const repo = ((!uri_a) ? false : (uri_a[1] + '_' + uri_a[2]));
+								
+								const t = parseInt(list[o].replace(/^([^\_]+)\_/, '').replace(/\.json$/, ''));
+								const dt = new Date().getTime() - t;
+								const data = {
+									name : list[o],
+									repo: repo,
+									tm : parseInt(dt * 0.001 / 60) + ' mins'
+								}
+								cbk(data);
+							});
 						}
 					})(o)
 				}
