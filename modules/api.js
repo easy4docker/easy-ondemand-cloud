@@ -39,8 +39,8 @@
 			cp.serial(_f, (dt) => {
 				callback({status:'success', 
 					requests: {
-						pendding : cp.data.pendding.filter((v) => {  return true; }),
-						offRoad  : cp.data.pendding.filter((v) => {  return true; }),
+						pendding : cp.data.pendding.filter((v) => {  return (/^onDemand\_/.test(v)) ? true : false; }),
+						offRoad  : cp.data.pendding.filter((v) => {  return (/^offRoad\_/.test(v)) ? true : false; }),
 						results  : cp.data.results
 					}
 				});

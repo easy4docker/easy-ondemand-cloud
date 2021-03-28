@@ -5,21 +5,22 @@
                 <div class="row">
                     <div class="col-3 p-1 m-0 ">
                         <div class="card ondemand-requestions-section mt-0 mr-1 p-2">
-                            <div class="pl-2 m-0 text-center"><h5>Pendding Requests</h5></div>
+                            <div class="pl-2 m-0 text-left text-info"><h5>Penddings</h5></div>
                             <div class="border border-secondary rounded m-1 p-1 text-left">
-                                <b class="mb-1">On Demand:</b>
+                                <b class="mb-1 ml-1">On Demand:</b>
                                 <div v-if="requests.pendding" v-for="o in requests.pendding" class="m-1 p-1 border alert-secondary">
-                                    {{o}}
+                                    {{showPadding(o)}}
                                 </div>
                             </div>
                             <div class="border border-secondary rounded m-1 p-1 text-left">
-                                <b class="mb-1">Off Road:</b>
+                                <b class="mb-1 ml-1">Off Road:</b>
                                 <div v-if="requests.offRoad" v-for="o in requests.offRoad" class="m-1 p-1 border alert-secondary">
-                                    {{o}}
+                                    {{showPadding(o)}}
                                 </div>
                             </div>
+                            <div class="pl-2 m-0 text-left text-info"><h5>Results</h5></div>
                             <div class="border border-secondary rounded m-1 p-1 text-left">
-                                <b class="mb-1">Results:</b>
+                                <b class="mb-1 ml-1">Results:</b>
                                 <div v-if="!!requests && requests.results.length" v-for="o in requests.results" class="m-1 p-1 border alert-secondary">
                                     {{o}}
                                 </div>
@@ -123,6 +124,9 @@ module.exports = {
 
     },
     methods :{
+        showPadding(v) {
+            return v.replace(/^([^\_]+)\_/, '').replace(/\.json$/, '');
+        },
         formOnFileChanged (e) {
             var me = this;
             me.form.selectedFile = e.target.files[0]; 
