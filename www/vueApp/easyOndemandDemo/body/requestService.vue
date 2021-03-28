@@ -9,7 +9,7 @@
                             <div class="border border-secondary rounded m-1 p-1 text-left">
                                 <b class="mb-1 ml-1">On Demand:</b><i class="fa fa-refresh fa-spin pull-right text-success mr-2" style="font-size:24px"></i>
                                 <div v-if="requests.pendding" v-for="o in requests.pendding" class="m-1 p-1 border alert-secondary">
-                                    <div>{{o.repo}}</div><div class="text-right pr-1 text-secondary">{{o.tm}}</div>
+                                    <div>{{lTruncate(o.repo, 22)}}</div><div class="text-right pr-1 text-secondary">{{o.tm}}</div>
                                 </div>
                             </div>
                             <div class="border border-secondary rounded m-1 p-1 text-left">
@@ -124,9 +124,10 @@ module.exports = {
 
     },
     methods :{
-        showPadding(v) {
-            return v;
-        },
+		lTruncate(str, length) {
+            const dt = str.length - length;
+            return '...' + str.slice((dt > 0)? dt : 0, str.length)
+		},
         showResult(v) {
             const a = v.match(/\_([0-9]+)$/);
             const t = a[1];

@@ -20,7 +20,6 @@
 					callback(postData);
 			}
 		};
-
 		me.getPaddingDir = (d, callback) => {
 			fs.readdir(d, (err, list) => {
 				list = list.filter((rec) => { return (rec[0] === '.') ? false: true});
