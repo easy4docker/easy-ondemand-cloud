@@ -21,16 +21,33 @@
 			}
 		};
 
-		me.toHHMMSS = (secs) => {
-			var sec_num = parseInt(secs, 10)
-			var hours   = Math.floor(sec_num / 3600)
-			var minutes = Math.floor(sec_num / 60) % 60
-			var seconds = sec_num % 60
-		
-			return [hours,minutes,seconds]
-				.map(v => v < 10 ? "0" + v : v)
-				.filter((v,i) => v !== "00" || i > 0)
-				.join(":")
+		me.toHHMMSS = (seconds) => {
+			if (!seconds) return '';
+			let duration = seconds;
+			let hours = duration / 3600;
+			duration = duration % (3600);
+		   
+			let min = parseInt(duration / 60);
+			duration = duration % (60);
+		   
+			let sec = parseInt(duration);
+		   
+			if (sec < 10) {
+			  sec = `${sec}`;
+			}
+			if (min < 10) {
+			  min = `${min}`;
+			}
+		   
+			if (parseInt(hours, 10) > 0) {
+			  return `${parseInt(hours, 10)}h ${min}m ${sec}s`
+			}
+			else if (min == 0) {
+			  return `${sec}s`
+			}
+			else {
+			  return `${min}m ${sec}s`
+			}
 		};
 
 		
