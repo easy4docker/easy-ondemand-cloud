@@ -2,7 +2,6 @@
 	var obj =  function (env, pkg) {
         const 	me = this,
 				fs = require('fs'),
-				cp = new pkg.crowdProcess(),
 				exec = require('child_process').exec;
 
 		me.call = (postData, callback) => {
@@ -22,10 +21,22 @@
 			}
 		};
 
-		me.getDir = (d, cbk) => {
-			fs.readdir(d, (err, dlist) => {
-				const list = (!err) ? dlist : [];
-				cbk(list.filter((rec) => { return (rec[0] === '.') ? false: true}));
+		me.getDir = (d, callback) => {
+			fs.readdir(d, (err, list) => {
+				list = list.filter((rec) => { return (rec[0] === '.') ? false: true});
+				const _f = {};
+
+				for (let o in list) {
+					_f['p_' + o] = ((o) => {
+						return (cbk) => {
+							cbk(list[o]);
+						}
+					})(o)
+				}
+				const cp = new pkg.crowdProcess();
+				cp.serial(_f, (d) => {
+					callback(list);
+				}, 3000);
 			});
 		}
 		me.getPenddingRequests = (postData, callback) => {
@@ -36,6 +47,7 @@
 			_f['results'] = (cbk) => {
 				me.getDir(env.sharedFolder, cbk);
 			}
+			const cp = new pkg.crowdProcess();
 			cp.serial(_f, (dt) => {
 				callback({status:'success', 
 					requests: {
@@ -117,6 +129,7 @@
 						(rec) => { return (rec[0] === '.') ? false: true}));
 				});
 			}
+			const cp = new pkg.crowdProcess();
 			cp.serial(_f, (result) => {
 				callback({status:'success', files :{
 					input  : cp.data.input,
