@@ -33,17 +33,14 @@
 			_f['pendding'] = (cbk) => {
 				me.getDir(env.dataFolder + '/_pendding', cbk);
 			}
-			_f['offRoad'] = (cbk) => {
-				me.getDir(env.dataFolder + '/offRoad', cbk);
-			}
 			_f['results'] = (cbk) => {
 				me.getDir(env.sharedFolder, cbk);
 			}
 			cp.serial(_f, (dt) => {
 				callback({status:'success', 
 					requests: {
-						pendding : cp.data.pendding,
-						offRoad  : cp.data.offRoad,
+						pendding : cp.data.pendding.filter((v) => {  return true; }),
+						offRoad  : cp.data.pendding.filter((v) => {  return true; }),
 						results  : cp.data.results
 					}
 				});
