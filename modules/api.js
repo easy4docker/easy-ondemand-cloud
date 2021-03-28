@@ -68,7 +68,6 @@
 								const t = parseInt(list[o].replace(/^([^\_]+)\_/, '').replace(/\.json$/, ''));
 								const dt = new Date().getTime() - t;
 								const data = {
-									resultId : t,
 									name : list[o],
 									repo: repo,
 									tm : me.toHHMMSS(parseInt(dt * 0.001 / 60))
@@ -82,7 +81,9 @@
 				cp.serial(_f, (d) => {
 					const rlist = [];
 					for (let o in list) {
-						rlist.push(cp.data['p_' + o]);
+						if ((cp.data['p_' + o]) && /^result\_/.test(cp.data['p_' + o])) {
+							rlist.push(cp.data['p_' + o]);
+						}
 					}
 					callback(rlist);
 				}, 3000);
@@ -93,11 +94,13 @@
 			fs.readdir(d, (err, list) => {
 				list = list.filter((rec) => { return (rec[0] === '.') ? false: true});
 				const _f = {};
+				const resultIds = [];
 				for (let o in list) {
 					_f['p_' + o] = ((o) => {
 						return (cbk) => {
 							const a = list[o].match(/\_([0-9]+)$/);
 							const t = parseInt(a[1]);
+							resultIds.push(t)
 							const dt = new Date().getTime() - t;
 							const data = {
 								resultId : t,
