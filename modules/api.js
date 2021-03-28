@@ -88,7 +88,7 @@
 			});
 		}
 
-		me.getDir = (d, callback) => {
+		me.getResultDir = (d, callback) => {
 			fs.readdir(d, (err, list) => {
 				list = list.filter((rec) => { return (rec[0] === '.') ? false: true});
 				const _f = {};
@@ -96,13 +96,24 @@
 				for (let o in list) {
 					_f['p_' + o] = ((o) => {
 						return (cbk) => {
-							cbk(list[o]);
+							const a = list[o].match(/\_([0-9]+)$/);
+							const t = parseInt(a[1]);
+							const dt = new Date().getTime() - t;
+							const data = {
+								name : list[o].replace(/\_([0-9]+)$/, ''),
+								tm : me.toHHMMSS(parseInt(dt * 0.001 / 60))
+							}
+							cbk(data);
 						}
 					})(o)
 				}
 				const cp = new pkg.crowdProcess();
 				cp.serial(_f, (d) => {
-					callback(list);
+					const rlist = [];
+					for (let o in list) {
+						rlist.push(cp.data['p_' + o]);
+					}
+					callback(rlist);
 				}, 3000);
 			});
 		}
@@ -113,7 +124,7 @@
 				me.getPaddingDir(env.dataFolder + '/_pendding', cbk);
 			}
 			_f['results'] = (cbk) => {
-				me.getDir(env.sharedFolder, cbk);
+				me.getResultDir(env.sharedFolder, cbk);
 			}
 			const cp = new pkg.crowdProcess();
 			cp.serial(_f, (dt) => {
