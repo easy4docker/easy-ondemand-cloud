@@ -68,6 +68,7 @@
 								const t = parseInt(list[o].replace(/^([^\_]+)\_/, '').replace(/\.json$/, ''));
 								const dt = new Date().getTime() - t;
 								const data = {
+									resultId : t,
 									name : list[o],
 									repo: repo,
 									tm : me.toHHMMSS(parseInt(dt * 0.001 / 60))
@@ -92,7 +93,6 @@
 			fs.readdir(d, (err, list) => {
 				list = list.filter((rec) => { return (rec[0] === '.') ? false: true});
 				const _f = {};
-
 				for (let o in list) {
 					_f['p_' + o] = ((o) => {
 						return (cbk) => {
@@ -100,6 +100,7 @@
 							const t = parseInt(a[1]);
 							const dt = new Date().getTime() - t;
 							const data = {
+								resultId : t,
 								name : list[o].replace(/\_([0-9]+)$/, ''),
 								tm : me.toHHMMSS(parseInt(dt * 0.001 / 60))
 							}
@@ -140,7 +141,6 @@
 
 		me.removeResult = (postData, callback) => {
 			const comStr = 'rm -fr ' + env.sharedFolder + '/' + postData.data.result;
-
 			exec(comStr,  {maxBuffer: 224 * 2048}, function(err, stdout, stderr) {
 				callback((!err) ? {status:'success'} : {status:'failure', message:err.mrssage});
 			});
