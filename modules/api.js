@@ -71,13 +71,15 @@
 			if (!postData.data || ['onDemand', 'offRoad'].indexOf(postData.data.serviceType) === -1) {
 				callback({status:'failure', message: 'wrong service type!'});
 			} else {
-				let cmd = 'mkdir -p ' + env.dataFolder + '/_pendding && echo "' + new Date().getTime() + '" > ' + env.dataFolder + '/_pendding/_' + postData.data.serviceType + requestId + ' && ';
+				let cmd = 'mkdir -p ' + env.dataFolder + '/_pendding && ';
 				cmd += 'mkdir -p ' + env.dataFolder + '/' + postData.data.serviceType;
 				exec(cmd,  {maxBuffer: 224 * 2048}, (err, stdout, stderr) => {
-					fs.writeFile(env.dataFolder + '/' + postData.data.serviceType + '/request_' + requestId + '.json', 
-						JSON.stringify(data), (err, result) => {
-						callback({status:'success'});
-					})
+					fs.writeFile(env.dataFolder + '/_pendding/' + postData.data.serviceType + '_' + requestId + '.json', JSON.stringify(data), (err, result) => {
+						fs.writeFile(env.dataFolder + '/' + postData.data.serviceType + '/request_' + requestId + '.json', 
+							JSON.stringify(data), (err, result) => {
+							callback({status:'success'});
+						})
+					});
 				});
 			}
 		}
