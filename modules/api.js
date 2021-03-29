@@ -81,9 +81,9 @@
 				cp.serial(_f, (d) => {
 					const rlist = [];
 					for (let o in list) {
-						if ((cp.data['p_' + o]) && /^result\_/.test(cp.data['p_' + o])) {
+						
 							rlist.push(cp.data['p_' + o]);
-						}
+					
 					}
 					callback(rlist);
 				}, 3000);
@@ -115,7 +115,9 @@
 				cp.serial(_f, (d) => {
 					const rlist = [];
 					for (let o in list) {
-						rlist.push(cp.data['p_' + o]);
+						if ((cp.data['p_' + o]) && /^result\_/.test(cp.data['p_' + o])) {
+							rlist.push(cp.data['p_' + o]);
+						}
 					}
 					callback(rlist);
 				}, 3000);
