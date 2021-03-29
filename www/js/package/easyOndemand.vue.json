@@ -1,12 +1,12 @@
 {
     "TPL" : [
-        "/vueApp/easyOndemandDemo/appHeader.vue",
-        "/vueApp/easyOndemandDemo/appBody.vue",
-        "/vueApp/easyOndemandDemo/dataEngine.vue",
-        "/vueApp/easyOndemandDemo/popUpModals/_frame.vue",
-        "/vueApp/easyOndemandDemo/appRoot.vue",
-        "/vueApp/easyOndemandDemo/auth.vue",
-        "/vueApp/easyOndemandDemo/spinner.vue"
+        "/vueApp/onDemand/appHeader.vue",
+        "/vueApp/onDemand/appBody.vue",
+        "/vueApp/onDemand/dataEngine.vue",
+        "/vueApp/onDemand/popUpModals/_frame.vue",
+        "/vueApp/onDemand/appRoot.vue",
+        "/vueApp/onDemand/auth.vue",
+        "/vueApp/onDemand/spinner.vue"
     ],
     "JS" : [
         "/js/coffee-script.js",

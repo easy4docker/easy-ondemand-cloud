@@ -12,7 +12,7 @@ $(document).ready(
                     components: VUEApp.loadComponents({
                         LOAD    : {}, 
                         TPL :{
-                            'appRoot' : '/vueApp/easyOndemandDemo/appRoot.vue'
+                            'appRoot' : '/vueApp/onDemand/appRoot.vue'
                         }
                     })
                 });

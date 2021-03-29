@@ -52,16 +52,16 @@ module.exports = {
     },
     components: VUEApp.loadComponents({
         LOAD    : {
-            'ondemandResults'   : '/vueApp/easyOndemandDemo/body/ondemandResults.vue',
-            'requestService'   : '/vueApp/easyOndemandDemo/body/requestService.vue',
-            'bodyDocuments'   : '/vueApp/easyOndemandDemo/body/documents.vue'   
+            'ondemandResults'   : '/vueApp/onDemand/body/ondemandResults.vue',
+            'requestService'   : '/vueApp/onDemand/body/requestService.vue',
+            'bodyDocuments'   : '/vueApp/onDemand/body/documents.vue'   
         }, 
         TPL :{
-            'appHeader' : '/vueApp/easyOndemandDemo/appHeader.vue',
-            'dataEngine' : '/vueApp/easyOndemandDemo/dataEngine.vue',
-            'spinner'   : '/vueApp/easyOndemandDemo/spinner.vue',
-            'popUpModal': '/vueApp/easyOndemandDemo/popUpModals/_frame.vue',
-            'appBody'   : '/vueApp/easyOndemandDemo/appBody.vue'
+            'appHeader' : '/vueApp/onDemand/appHeader.vue',
+            'dataEngine' : '/vueApp/onDemand/dataEngine.vue',
+            'spinner'   : '/vueApp/onDemand/spinner.vue',
+            'popUpModal': '/vueApp/onDemand/popUpModals/_frame.vue',
+            'appBody'   : '/vueApp/onDemand/appBody.vue'
         }
     })
 }
