@@ -38,6 +38,18 @@
                             <input type="text" class="form-control" v-model="form.gitHub" @input="changedGit" placeholder="A Git URI">
                         </div>
                         <div class="form-group">
+                            <label>Service Type</label>
+                                <select class="form-control" :required="true"  v-model="form.serviceType">
+                                    <option 
+                                    v-for="option in serviceTypes" 
+                                    v-bind:value="option"
+                                    :selected="option === form.serviceType"
+                                    >{{ option }}</option>
+                                </select>                 
+                        </div>
+
+
+                        <div class="form-group">
                             <div class="container-fluid border border-2 p-2 alert-secondary rounded">
                                 <div class="row">
                                     <div class="col-12 text-info">
@@ -91,17 +103,17 @@ data() {
 
 <script>
 module.exports = {
-    props : ['servicetype'],
     data: function() {
         return {
             root :  this.$parent.root,
+            serviceTypes : ['onDemand', 'offRoad'],
             module : '',
             form : {
                 gitHub      : '',
                 userName    : '',
                 password    : '',
                 inputData   : '',
-                serviceType : this.servicetype,
+                serviceType : 'onDemand',
                 selectedFile: null
             },
             loadingStatus : false,
