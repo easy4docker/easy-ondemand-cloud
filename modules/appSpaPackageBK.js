@@ -3,26 +3,34 @@
         var fs = require('fs'),
             me = this,
 			dirPatt = /\/spa\-package\//;
-		me.call = function(p) {
+		this.call = function(p) {
 			let spaDir = env.appFolder + '/www/js/package/';
 			let cfgFn = spaDir + p.replace(dirPatt, '');
 			let fileAttr = me.getConfigAttr(cfgFn);
+			let cfg = {};
+			try {
+				cfg = pkg.require(fileAttr.fileName);
+			} catch (e) {}
+			me.sendHeader(fileAttr.type);
 
-			pkg.readJson(fileAttr.fileName, (cfg) => {
-				me.sendHeader(fileAttr.type);
-				if (fileAttr.type.indexOf(['vue']) !== -1) {
-					me.packVueFile(cfg);
-				} else if (fileAttr.type.indexOf(['js']) !== -1) {
-					me.packJsFile(cfg);
-				} else if (fileAttr.type.indexOf(['css']) !== -1) {
-					me.packCssFile(cfg);
-				} else {
-					me.packJsFile(cfg);
-				}
-            });
+			if (fileAttr.type.indexOf(['vue']) !== -1) {
+				me.packVueFile(cfg);
+				return true;
+			}
+
+			if (fileAttr.type.indexOf(['js']) !== -1) {
+				me.packJsFile(cfg);
+				return true;
+			}
+
+			if (fileAttr.type.indexOf(['css']) !== -1) {
+				me.packCssFile(cfg);
+				return true;
+			} 
+			me.packJsFile(cfg);
 		};
 
-		me.packCssFile = function(cfg) {
+		this.packCssFile = function(cfg) {
 			var codeStr = '';
 			var _f = {},
 				appDir = env.appFolder + '/www';
@@ -53,7 +61,7 @@
 			}, 6000);
 		}
 
-		me.packVueFile = function(cfg) {
+		this.packVueFile = function(cfg) {
 			var codeStr = 'if (!_TPL) var _TPL = {};' + "\n";
 			codeStr += 'if (!_TPL.vue) _TPL.vue = {};' + "\n";
 			var _f = {},
@@ -84,8 +92,6 @@
 			cp.serial(
 				_f,
 				function(data) {
-					codeStr += "/* ====== PATH code ====== */ \n";
-					codeStr += " _TPL.host = '" + req.headers.host + "'; \n";
 					codeStr += "/* ====== TPL code ====== */ \n"
 					for (var k in cfg.TPL) {
 						codeStr += "/* --> " + cfg.TPL[k] + " */ \n\n";
@@ -111,7 +117,7 @@
 			}, 6000);
 		}
 
-		me.packJsFile = function(cfg) {
+		this.packJsFile = function(cfg) {
 			var codeStr = 'if (!_TPL) var _TPL = {};' + "\n";
 			codeStr += 'if (!_TPL.js) _TPL.js= {};' + "\n";
 			var _f = {},
@@ -142,8 +148,6 @@
 			cp.serial(
 				_f,
 				function(data) {
-					codeStr += "/* ====== PATH code ====== */ \n";
-					codeStr += " \n";
 					codeStr += "/* ====== TPL code ====== */ \n"
 					for (var k in cfg.TPL) {
 						codeStr += "/* --> " + cfg.TPL[k] + " */ \n\n";
@@ -161,7 +165,7 @@
 					res.send(codeStr);
 			}, 6000);
 		}
-		me.getConfigAttr = (fn) => {
+		this.getConfigAttr = (fn) => {
 			let patt = /(\.min|)\.(vue|js|css|jsx)$/i;
 			let v = fn.match(patt);
 			return (!v)? {} : {
@@ -170,7 +174,7 @@
 				'fileName'	: (!v[2]) ? fn : (fn.replace(patt, '.') + v[2] + '.json')
 			};
 		};
-		me.sendHeader = (filetype) => {
+		this.sendHeader = (filetype) => {
 			var me = this;
 			res.header("Access-Control-Allow-Origin", "*");
 			res.header("Access-Control-Allow-Headers", "X-Requested-With");

@@ -54,11 +54,15 @@ module.exports = {
         },
         ajaxPostData(postData, callback, isSpinner) {
             const me = this;
+            const data = postData;
+            data.fromHost = location.host;
             $.ajax({
                 type: 'POST',
-                url: '/api/',
+                url: '//localhost:10000/onDemand/',
+               // url: '/api/',
                 data: postData,
                 success: function(result) {
+                    console.log(result);
                     if (isSpinner) me.$parent.triggerSpinner = false;   
                     callback(result);
                 },
@@ -81,7 +85,7 @@ module.exports = {
             postFormData = {};
             $.ajax({
                 type: 'POST',
-                url: '/upload/',
+                url: '//' + _TPL.host + '/upload/',
                 cache: false,
                 processData: false,
                 method: 'POST',

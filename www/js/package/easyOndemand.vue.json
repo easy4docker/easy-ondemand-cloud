@@ -6,7 +6,8 @@
         "/vueApp/onDemand/popUpModals/_frame.vue",
         "/vueApp/onDemand/appRoot.vue",
         "/vueApp/onDemand/auth.vue",
-        "/vueApp/onDemand/spinner.vue"
+        "/vueApp/onDemand/spinner.vue",
+        "/vueApp/onDemand/body/documents.vue"
     ],
     "JS" : [
         "/js/coffee-script.js",
