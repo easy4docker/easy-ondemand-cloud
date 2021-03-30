@@ -2,7 +2,7 @@
     <div class="container-fluid m-0 mt-2 mb-3" >
         <div class="row">
             <div class="col-1 p-0"></div>
-            <div class="col-10 p-0 card text-center shadow border rounded">
+            <div class="col-12 p-0 card text-center shadow border rounded">
                 <app-header></app-header>
             </div>
             <div class="col-1 p-0"></div>

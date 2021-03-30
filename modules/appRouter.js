@@ -6,14 +6,14 @@
 		this.route = (rest) => {
 			let p = req.params[0],
 				mp = p.match(/\/([^\/]+)(\/|$)/);
-
+			/*
 			if (mp && mp[1] === 'spa-package') {
 				let SPA = pkg.require(__dirname + '/appSpaPackage.js');
 				let spa= new SPA(env, pkg, req, res);
 				spa.call(p);
 				return true
-			}
-
+			}*/
+			/*
 			if (mp && mp[1] === 'api') {
 				let API = pkg.require(__dirname + '/api.js');
 				let api= new API(env, pkg, req, res);
@@ -22,7 +22,7 @@
 				});
 				return true
 			}
-			
+			*/
 			if (mp && mp[1] === 'app') {
 				var fn = env.root + '/www/index.html';
 				res.sendFile(fn);

@@ -2,18 +2,85 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/spa-package/easyOndemand.css">
+<link rel="stylesheet" href="//localhost:10000/spa-package/easyOndemand.css">
 <link href="https://fonts.googleapis.com/css?family=RocknRoll+One" rel="stylesheet">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" />
-<script src="/spa-package/easyOndemand.vue"></script>
+<script src="//localhost:10000/spa-package/easyOndemand.vue"></script>
 <script>
 
 </script>
 <title>Easy Ondemand Demo1</title>
 </head>
 <body>
-  <span id="EasyOndemandDemo">
-    <app-root></app-root>
-  </span>
+  <div class="container-fluid m-0 mt-2 mb-3" >
+    <div class="row">
+      <div class="col-1 p-0"></div>
+      <div class="col-10 p-0 card text-center shadow border rounded">
+        <div class="head-card card m-1">
+          <div class="card-body m-0 p-1 alert-info header-bg ">
+              <div class="pull-right pl-1 text-dark developer-mark">Developer : John Xu</div>
+              <div class="container-fluid m-0 head-menu-1">
+                  <div class="row">
+                      <div class="col-1 p-0 m-0 text-left">
+                      </div>
+                      <div class="col-11 p-2 text-left">
+                          <h1 class="header-title m-3 text-light">Easy OnDemand Solution 
+                              <span class="version">(Version &alpha;)</span></h1>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div> 
+        <span id="EasyOndemandDemo">
+          <app-root></app-root>
+        </span>
+      </div>
+      <div class="col-1 p-0"></div>
+  </div>   
+</div>  
+
 </body>
 </html>
+<style>
+.header-bg { 
+  background: url("/images/onDemandBannerBg.png"); 
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
+  background-position: left;
+}
+
+.head-card {
+  min-height: 7rem;
+}
+.head-menu-1 {
+  height: 6rem;
+}
+.head-menu-2 {
+  height: 1.5rem;
+}
+
+.head-menu-2 a { color: #ccc}
+
+.head-menu-2 .menu-frame {
+  background: rgba(0,0,0,0.33);
+}
+
+.header-title {
+  font-family: "RocknRoll One", Arial, Verdana, Serif;
+}
+.header-title .version {
+  font-family: Arial, Verdana, Serif;
+  font-size: 1.5rem
+}
+.developer-mark { 
+  font-family: Arial, Verdana, Serif;
+ -webkit-text-stroke: 1px #333;
+ color: white;
+ text-shadow:
+     1px 1px 0 #eee,
+   -1px -1px 0 #eee,  
+    1px -1px 0 #eee,
+    -1px 1px 0 #eee,
+     1px 1px 0 #eee;
+}
+</style>

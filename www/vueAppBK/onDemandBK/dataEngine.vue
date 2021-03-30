@@ -45,13 +45,34 @@ module.exports = {
             if (Object.keys(postFormData).length) {
                 me.ajaxPostForm(postFormData, function(resultPostForm) {
                     postData.uploadId = resultPostForm.uploadId;
-                    me.ajaxPostData(postData, callback, isSpinner)
+                    me.ajaxSaveData(postData, callback, isSpinner)
                 }, false);
             } else {
                 me.ajaxPostData(postData, callback, isSpinner);
             }
             return true;
         },
+        ajaxSaveData(postData, callback, isSpinner) {
+            const me = this;
+            const data = postData;
+            data.fromHost = location.host;
+            $.ajax({
+                type: 'POST',
+                url: '/api/',
+                data: postData,
+                success: function(result) {
+                    console.log(result);
+                    if (isSpinner) me.$parent.triggerSpinner = false;   
+                    callback(result);
+                },
+                error: function (jqXHR, textStatus, errorThrown) { 
+                    if (isSpinner) me.$parent.triggerSpinner = false;
+                    callback({statu : 'failure', message : 'failure request.', result : jqXHR.responseText});
+                },
+                dataType: 'JSON'
+            });
+        },
+
         ajaxPostData(postData, callback, isSpinner) {
             const me = this;
             const data = postData;
@@ -59,7 +80,6 @@ module.exports = {
             $.ajax({
                 type: 'POST',
                 url: '//localhost:10000/onDemand/',
-               // url: '/api/',
                 data: postData,
                 success: function(result) {
                     console.log(result);
